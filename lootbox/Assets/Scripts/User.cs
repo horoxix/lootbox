@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class User : MonoBehaviour {
     protected float experience;
     protected int level;
     protected int inventorySlots;

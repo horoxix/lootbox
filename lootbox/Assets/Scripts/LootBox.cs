@@ -6,19 +6,22 @@ public class LootBox : MonoBehaviour {
     protected int itemCount;
     protected LootType lootType;
 
+    public int ItemCount
+    {
+        get
+        {
+            return itemCount;
+        }
+
+        set
+        {
+            itemCount = value;
+        }
+    }
+
     protected enum LootType
     {
         FREE,
         PAID
     }
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
