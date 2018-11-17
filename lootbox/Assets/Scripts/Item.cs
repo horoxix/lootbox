@@ -1,25 +1,49 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour {
-    protected string itemName;
+    private string itemName;
     protected Rarity rarity;
     protected Keywords keyword;
     protected ItemType itemType;
     protected RandomManager randomManager;
+    public static List<Item> itemTypeList = new List<Item>()
+{
+    new Weapon(),
+    new Helm(),
+    new Pants(),
+    new Gloves(),
+    new Boots(),
+    new Belt(),
+    new Accessory(),
+    new Armor()
+};
+
+    public string ItemName
+    {
+        get
+        {
+            return itemName;
+        }
+
+        set
+        {
+            itemName = value;
+        }
+    }
 
     // Enum list of possible Item Types.
-    protected enum ItemType
+    public enum ItemType
     {
-        RIGHT_HAND,
-        LEFT_HAND,
+        WEAPON,
         ARMOR,
         PANTS,
         BOOTS,
         HELM,
         BELT,
-        ACCESSORY
+        ACCESSORY,
+        GLOVES
     }
 
     // Enum list of possible Rarity values.
@@ -45,13 +69,12 @@ public class Item : MonoBehaviour {
     }
 
     // Randomly sets the values of the item based on the enums.
-	void Start () {
+	protected virtual void Start () {
         randomManager = FindObjectOfType<RandomManager>();
         keyword = (Keywords)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.CumulativeProbability));
-        itemType = (ItemType)Random.Range(0, System.Enum.GetValues(typeof(ItemType)).Length);
         rarity = (Rarity)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.CumulativeProbability));
-        itemName = keyword + " " + itemType;
-        Debug.Log("Generated " + itemName + " " + rarity); 
+        ItemName = keyword + " " + itemType;
+        Debug.Log("Generated " + ItemName + " " + rarity); 
 	}
 
     // Debug purposes. Logs all time/key pairs for animationCurve.

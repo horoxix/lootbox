@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class RandomManager : MonoBehaviour {
     [SerializeField] private AnimationCurve cumulativeProbability;
@@ -8,6 +10,7 @@ public class RandomManager : MonoBehaviour {
     private float middleSmooth = -.05f;
     private float endingSmooth = -2f;
 
+    public static System.Random random = new System.Random();
 
     public AnimationCurve CumulativeProbability
     {
@@ -31,6 +34,13 @@ public class RandomManager : MonoBehaviour {
 
     public float CurveWeightedRandom(AnimationCurve curve)
     {
-        return curve.Evaluate(Random.value);
+        return curve.Evaluate(UnityEngine.Random.value);
     }
+
+    // TODO
+    public Type RandomList(List<Item> list)
+    {
+        return list[random.Next(list.Count)].GetType();
+    }
+
 }

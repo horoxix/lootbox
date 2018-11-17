@@ -113,6 +113,72 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &126103410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 126103411}
+  m_Layer: 5
+  m_Name: LootSlot (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &126103411
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 126103410}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1811657227}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 143, y: 302}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 1}
+--- !u!1 &219476136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 219476137}
+  m_Layer: 5
+  m_Name: LootSlot (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &219476137
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 219476136}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1811657227}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: -66, y: 173}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &425806491
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +297,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &664650225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 664650227}
+  - component: {fileID: 664650226}
+  m_Layer: 0
+  m_Name: User
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &664650226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 664650225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22dca451bb5416b459441c584712f3b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myInventory: {fileID: 0}
+--- !u!4 &664650227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 664650225}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.3092027, y: -0.7492566, z: -0.050754994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &685357337
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,13 +426,79 @@ RectTransform:
   - {fileID: 425806495}
   - {fileID: 1811657227}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 209, y: 372}
   m_SizeDelta: {x: 418, y: 744}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &756814496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 756814497}
+  m_Layer: 5
+  m_Name: LootSlot (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &756814497
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 756814496}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1811657227}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 304}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!1 &800892045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 800892046}
+  m_Layer: 5
+  m_Name: LootSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &800892046
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 800892045}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1811657227}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -141, y: 304}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0, y: 1}
 --- !u!1 &1336191225
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +559,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1456081725
 Prefab:
@@ -398,7 +571,7 @@ Prefab:
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4495922289285546, guid: 8fd941e5d66a2c74b984f907f121fbc8, type: 2}
       propertyPath: m_LocalPosition.x
@@ -435,62 +608,62 @@ Prefab:
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[0].value
-      value: 0
+      value: 0.012268066
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[1].time
-      value: 1.1641625
+      value: 0.7682819
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[1].value
-      value: 4.9150786
+      value: 1.205592
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[1].inSlope
-      value: 7.3733683
+      value: 5.185453
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[1].outSlope
-      value: 7.3733683
+      value: 5.185453
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[1].inWeight
-      value: 0.03925616
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[1].outWeight
-      value: 0
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[2].time
-      value: 1.0044307
+      value: 1.1641625
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[2].value
-      value: 5.0010567
+      value: 5.1129394
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[2].inSlope
-      value: 16.00345
+      value: 7.3733683
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[2].outSlope
-      value: 16.00345
+      value: 7.3733683
       objectReference: {fileID: 0}
     - target: {fileID: 114085516917868858, guid: 8fd941e5d66a2c74b984f907f121fbc8,
         type: 2}
       propertyPath: cumulativeProbability.m_Curve.Array.data[2].inWeight
-      value: 0.054895677
+      value: 0.03925616
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fd941e5d66a2c74b984f907f121fbc8, type: 2}
@@ -523,6 +696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Loot: {fileID: 1811657226}
+  user: {fileID: 664650226}
 --- !u!4 &1499084154
 Transform:
   m_ObjectHideFlags: 0
@@ -534,7 +708,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1811657226
 GameObject:
@@ -544,6 +718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1811657227}
+  - component: {fileID: 1811657228}
   m_Layer: 5
   m_Name: Loot
   m_TagString: Untagged
@@ -560,7 +735,12 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 800892046}
+  - {fileID: 756814497}
+  - {fileID: 126103411}
+  - {fileID: 219476137}
+  - {fileID: 1978591648}
   m_Father: {fileID: 685357341}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -569,6 +749,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1811657228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1811657226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ace9a5be54d1af459986dfd1b526996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootSlots: []
 --- !u!1 &1870786670
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,3 +883,36 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1870786670}
   m_CullTransparentMesh: 0
+--- !u!1 &1978591647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1978591648}
+  m_Layer: 5
+  m_Name: LootSlot (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1978591648
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1978591647}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1811657227}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 76, y: 175}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 0.5}
