@@ -38,7 +38,7 @@ public class RandomManager : MonoBehaviour {
     }
 
     // TODO
-    public Type RandomList(List<Item> list)
+    public Type RandomList<T>(List<T> list)
     {
         return list[random.Next(list.Count)].GetType();
     }

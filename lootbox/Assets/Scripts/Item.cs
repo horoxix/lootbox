@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour {
+public abstract class Item : MonoBehaviour {
     private string itemName;
+    protected string generatedName;
     protected Rarity rarity;
     protected Keywords keyword;
     protected ItemType itemType;
     protected RandomManager randomManager;
+    [SerializeField]
+    protected Sprite itemSprite;
+    protected int value;
+
     public static List<Item> itemTypeList = new List<Item>()
 {
     new Weapon(),
@@ -54,7 +59,6 @@ public class Item : MonoBehaviour {
         RARE,
         EPIC,
         LEGENDARY,
-        UNIQUE
     }
 
     // Enum list of possible Keywords.
@@ -70,12 +74,21 @@ public class Item : MonoBehaviour {
 
     // Randomly sets the values of the item based on the enums.
 	protected virtual void Start () {
-        randomManager = FindObjectOfType<RandomManager>();
+        value = UnityEngine.Random.Range(1, 100);
+        GenerateKeyword();
+        itemName = keyword + " " + generatedName;
+        Debug.Log(itemName);
+    }
+
+    protected void GenerateKeyword()
+    {
         keyword = (Keywords)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.CumulativeProbability));
+    }
+
+    protected void GenerateRarity()
+    {
         rarity = (Rarity)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.CumulativeProbability));
-        ItemName = keyword + " " + itemType;
-        Debug.Log("Generated " + ItemName + " " + rarity); 
-	}
+    }
 
     // Debug purposes. Logs all time/key pairs for animationCurve.
     private void DebugLogKeys()
@@ -84,6 +97,28 @@ public class Item : MonoBehaviour {
         {
             Debug.Log("Time: " + randomManager.CumulativeProbability.keys[i].time);
             Debug.Log("Key: " + randomManager.CumulativeProbability.keys[i].value);
+        }
+    }
+
+    protected void CheckRarity(Dictionary<string, Sprite> dict)
+    {
+        switch (rarity)
+        {
+            case Rarity.COMMON:
+                itemSprite = dict["Common"];
+                break;
+            case Rarity.UNCOMMON:
+                itemSprite = dict["Uncommon"];
+                break;
+            case Rarity.RARE:
+                itemSprite = dict["Rare"];
+                break;
+            case Rarity.EPIC:
+                itemSprite = dict["Epic"];
+                break;
+            case Rarity.LEGENDARY:
+                itemSprite = dict["Legendary"];
+                break;
         }
     }
 
