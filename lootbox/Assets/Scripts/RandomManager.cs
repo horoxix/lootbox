@@ -25,6 +25,13 @@ public class RandomManager : MonoBehaviour {
         }
     }
 
+    public void SetAnimationCurve()
+    {
+        cumulativeProbability = new AnimationCurve(baseKeyFrame, middleKeyFrame, endingKeyFrame);
+        cumulativeProbability.SmoothTangents(1, middleSmooth);
+        cumulativeProbability.SmoothTangents(2, endingSmooth);
+    }
+
     private void Start()
     {
         cumulativeProbability = new AnimationCurve(baseKeyFrame, middleKeyFrame, endingKeyFrame);
@@ -42,5 +49,6 @@ public class RandomManager : MonoBehaviour {
     {
         return list[random.Next(list.Count)].GetType();
     }
+
 
 }

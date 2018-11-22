@@ -2,28 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour {
+public abstract class Item : MonoBehaviour{
     private string itemName;
-    protected string generatedName;
-    protected Rarity rarity;
+    public string generatedName;
+    private Rarity rarity;
     protected Keywords keyword;
     protected ItemType itemType;
     protected RandomManager randomManager;
     [SerializeField]
-    protected Sprite itemSprite;
+    public Sprite itemSprite;
     protected int value;
-
-    public static List<Item> itemTypeList = new List<Item>()
-{
-    new Weapon(),
-    new Helm(),
-    new Pants(),
-    new Gloves(),
-    new Boots(),
-    new Belt(),
-    new Accessory(),
-    new Armor()
-};
 
     public string ItemName
     {
@@ -35,6 +23,19 @@ public abstract class Item : MonoBehaviour {
         set
         {
             itemName = value;
+        }
+    }
+
+    public Rarity ItemRarity
+    {
+        get
+        {
+            return rarity;
+        }
+
+        set
+        {
+            rarity = value;
         }
     }
 
@@ -52,7 +53,7 @@ public abstract class Item : MonoBehaviour {
     }
 
     // Enum list of possible Rarity values.
-    protected enum Rarity
+    public enum Rarity
     {
         COMMON,
         UNCOMMON,
@@ -62,7 +63,7 @@ public abstract class Item : MonoBehaviour {
     }
 
     // Enum list of possible Keywords.
-    protected enum Keywords
+    public enum Keywords
     {
         NORMAL,
         DAMAGED,
@@ -72,23 +73,12 @@ public abstract class Item : MonoBehaviour {
         EXQUISITE
     }
 
-    // Randomly sets the values of the item based on the enums.
-	protected virtual void Start () {
-        value = UnityEngine.Random.Range(1, 100);
-        GenerateKeyword();
-        itemName = keyword + " " + generatedName;
-        Debug.Log(itemName);
+    protected void GenerateItemType()
+    {
+        itemType = (ItemType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(ItemType)).Length);
     }
 
-    protected void GenerateKeyword()
-    {
-        keyword = (Keywords)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.CumulativeProbability));
-    }
 
-    protected void GenerateRarity()
-    {
-        rarity = (Rarity)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.CumulativeProbability));
-    }
 
     // Debug purposes. Logs all time/key pairs for animationCurve.
     private void DebugLogKeys()
@@ -99,27 +89,4 @@ public abstract class Item : MonoBehaviour {
             Debug.Log("Key: " + randomManager.CumulativeProbability.keys[i].value);
         }
     }
-
-    protected void CheckRarity(Dictionary<string, Sprite> dict)
-    {
-        switch (rarity)
-        {
-            case Rarity.COMMON:
-                itemSprite = dict["Common"];
-                break;
-            case Rarity.UNCOMMON:
-                itemSprite = dict["Uncommon"];
-                break;
-            case Rarity.RARE:
-                itemSprite = dict["Rare"];
-                break;
-            case Rarity.EPIC:
-                itemSprite = dict["Epic"];
-                break;
-            case Rarity.LEGENDARY:
-                itemSprite = dict["Legendary"];
-                break;
-        }
-    }
-
 }

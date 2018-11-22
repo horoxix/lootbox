@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Boots : Item {
 
-    // Use this for initialization
-    protected override void Start()
+    public Boots(ItemType itemType, Rarity rarity, Sprite itemSprite, string generatedName)
     {
-        itemType = ItemType.BOOTS;
-        base.Start();
+        this.itemType = itemType ;
+        this.itemSprite = itemSprite;
+        this.ItemRarity = rarity;
+        this.generatedName = generatedName;
+        this.ItemName = ItemName;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

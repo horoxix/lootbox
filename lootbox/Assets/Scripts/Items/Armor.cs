@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Armor : Item {
-
-    // Use this for initialization
-    protected override void Start()
+    public Armor(ItemType itemType, Rarity rarity, Sprite itemSprite, string generatedName)
     {
-        itemType = ItemType.ARMOR;
-        base.Start();
+        this.itemType = itemType;
+        this.itemSprite = itemSprite;
+        this.ItemRarity = rarity;
+        this.generatedName = generatedName;
+        this.ItemName = ItemName;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
