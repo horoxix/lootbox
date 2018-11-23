@@ -8,6 +8,7 @@ public class User : MonoBehaviour {
     protected int inventorySlots;
     protected int equipmentSlots;
     protected int lootBoxes;
+    public int currency;
     public Inventory myInventory;
     protected Luck luck;
     protected Dexterity dexterity;

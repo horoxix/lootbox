@@ -10,7 +10,7 @@ public abstract class Item : MonoBehaviour{
     protected RandomManager randomManager;
     [SerializeField]
     public Sprite itemSprite;
-    protected int value;
+    public int value;
 
     // Enum list of possible Item Types.
     public enum ItemType
@@ -69,5 +69,6 @@ public abstract class Item : MonoBehaviour{
         this.itemSprite = itemSprite;
         this.rarity = rarity;
         this.itemName = itemName;
+        this.value = 100;
     }
 }
