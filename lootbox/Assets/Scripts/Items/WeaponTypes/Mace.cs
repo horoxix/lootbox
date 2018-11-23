@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Mace : Weapon {
 
-    public Mace(WeaponType weaponType, Rarity rarity, Sprite itemSprite, string generatedName)
+    public Mace(WeaponType weaponType, Rarity rarity, Sprite itemSprite, string itemName)
     {
         this.weaponType = weaponType;
         this.itemSprite = itemSprite;
-        this.ItemRarity = rarity;
-        this.generatedName = generatedName;
-        this.ItemName = ItemName;
+        this.rarity = rarity;
+        this.itemName = itemName;
     }
 }

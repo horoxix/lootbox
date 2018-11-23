@@ -29,18 +29,25 @@ public class Open : MonoBehaviour {
         for(int i=0; i < lootBox.ItemCount; i++)
         {
             Item.ItemType itemType = GenerateItemType();
+            GameObject thisObject = lootManager.lootSlots[i].gameObject;
+            Image uiSprite = thisObject.GetComponent<Image>();
             if (itemType == Item.ItemType.WEAPON)
             {
-                Weapon.WeaponType weaponType = GenerateWeaponType();
-                Weapon weapon = weaponFactory.Create(weaponType);
-                user.myInventory.items.Add(weapon);
-                lootManager.lootSlots[i].gameObject.GetComponent<Image>().sprite = weapon.itemSprite;
+                Weapon weapon = weaponFactory.Create(GenerateWeaponType());
+                Weapon addedWeapon = thisObject.AddComponent(weapon.GetType()) as Weapon;
+                addedWeapon.Instantiate(weapon.weaponType, weapon.rarity, weapon.itemSprite, weapon.itemName);
+                user.myInventory.items.Add(addedWeapon);
+                uiSprite.sprite = addedWeapon.itemSprite;
+                uiSprite.enabled = true;
             }
             else
             {
                 Item item = itemFactory.GetItem(itemType);
-                user.myInventory.items.Add(item);
-                lootManager.lootSlots[i].gameObject.GetComponent<Image>().sprite = item.itemSprite;
+                Item addedItem = thisObject.AddComponent(item.GetType()) as Item;
+                addedItem.Instantiate(item.itemType, item.rarity, item.itemSprite, item.itemName);
+                user.myInventory.items.Add(addedItem);
+                uiSprite.sprite = addedItem.itemSprite;
+                uiSprite.enabled = true;
             }
         }
         StartCoroutine(DisplayNames());
@@ -51,7 +58,7 @@ public class Open : MonoBehaviour {
         yield return new WaitForSeconds(1.0f);
         for (int j = 0; j < user.myInventory.items.Count; j++)
         {
-            Debug.Log(user.myInventory.items[j].generatedName);
+            Debug.Log(user.myInventory.items[j].itemName);
         }
     }
 

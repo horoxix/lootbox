@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : Item {
-    protected WeaponType weaponType;
+    public WeaponType weaponType;
     protected Luck luck;
     protected Strength strength;
     protected Dexterity dexterity;
@@ -16,5 +16,13 @@ public class Weapon : Item {
         BOW,
         AXE,
         SPEAR
+    }
+
+    public void Instantiate(WeaponType weaponType, Rarity rarity, Sprite itemSprite, string itemName)
+    {
+        this.weaponType = weaponType;
+        this.itemSprite = itemSprite;
+        this.rarity = rarity;
+        this.itemName = itemName;
     }
 }

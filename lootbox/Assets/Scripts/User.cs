@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class User : MonoBehaviour {
     protected float experience;
     protected int level;
@@ -12,6 +13,7 @@ public class User : MonoBehaviour {
     protected Dexterity dexterity;
     protected Strength strength;
     protected Intelligence intelligence;
+    protected float rareChange;
 
     // Use this for initialization
     void Start () {

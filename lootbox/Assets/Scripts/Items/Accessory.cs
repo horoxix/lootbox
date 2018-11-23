@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Accessory : Item {
 
-    public Accessory(ItemType itemType, Rarity rarity, Sprite itemSprite, string generatedName)
+    public Accessory(ItemType itemType, Rarity rarity, Sprite itemSprite, string itemName)
     {
         this.itemType = itemType;
         this.itemSprite = itemSprite;
-        this.ItemRarity = rarity;
-        this.generatedName = generatedName;
-        this.ItemName = ItemName;
+        this.rarity = rarity;
+        this.itemName = itemName;
     }
 }

@@ -35,6 +35,9 @@ public abstract class ItemFactory {
                 return dict["Epic"];
             case Item.Rarity.LEGENDARY:
                 return dict["Legendary"];
+            default:
+                Debug.Log(dict + " " + rarity);
+                break;
         }
         throw new NotImplementedException();
     }

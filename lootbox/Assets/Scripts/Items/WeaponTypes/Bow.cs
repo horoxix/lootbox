@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bow : Weapon {
-
-    public Bow(WeaponType weaponType, Rarity rarity, Sprite itemSprite, string generatedName)
+    public Bow(WeaponType weaponType, Rarity rarity, Sprite itemSprite, string itemName)
     {
         this.weaponType = weaponType;
         this.itemSprite = itemSprite;
-        this.ItemRarity = rarity;
-        this.generatedName = generatedName;
+        this.rarity = rarity;
+        this.itemName = itemName;
     }
 }

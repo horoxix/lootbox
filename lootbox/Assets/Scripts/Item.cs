@@ -3,41 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Item : MonoBehaviour{
-    private string itemName;
-    public string generatedName;
-    private Rarity rarity;
-    protected Keywords keyword;
-    protected ItemType itemType;
+    public string itemName;
+    public Rarity rarity;
+    public Keywords keyword;
+    public ItemType itemType;
     protected RandomManager randomManager;
     [SerializeField]
     public Sprite itemSprite;
     protected int value;
-
-    public string ItemName
-    {
-        get
-        {
-            return itemName;
-        }
-
-        set
-        {
-            itemName = value;
-        }
-    }
-
-    public Rarity ItemRarity
-    {
-        get
-        {
-            return rarity;
-        }
-
-        set
-        {
-            rarity = value;
-        }
-    }
 
     // Enum list of possible Item Types.
     public enum ItemType
@@ -88,5 +61,13 @@ public abstract class Item : MonoBehaviour{
             Debug.Log("Time: " + randomManager.CumulativeProbability.keys[i].time);
             Debug.Log("Key: " + randomManager.CumulativeProbability.keys[i].value);
         }
+    }
+
+    public void Instantiate(ItemType itemType, Rarity rarity, Sprite itemSprite, string itemName)
+    {
+        this.itemType = itemType;
+        this.itemSprite = itemSprite;
+        this.rarity = rarity;
+        this.itemName = itemName;
     }
 }

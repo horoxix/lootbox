@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Spear : Weapon {
 
-    public Spear(WeaponType weaponType, Rarity rarity, Sprite itemSprite, string generatedName)
+    public Spear(WeaponType weaponType, Rarity rarity, Sprite itemSprite, string itemName)
     {
         this.weaponType = weaponType;
         this.itemSprite = itemSprite;
-        this.ItemRarity = rarity;
-        this.generatedName = generatedName;
+        this.rarity = rarity;
+        this.itemName = itemName;
     }
 }
