@@ -11,6 +11,7 @@ public abstract class Item : MonoBehaviour{
     [SerializeField]
     public Sprite itemSprite;
     public int value;
+    public int statCount;
 
     // Enum list of possible Item Types.
     public enum ItemType
@@ -63,12 +64,13 @@ public abstract class Item : MonoBehaviour{
         }
     }
 
-    public void Instantiate(ItemType itemType, Rarity rarity, Sprite itemSprite, string itemName)
+    public void Instantiate(ItemType itemType, Rarity rarity, Sprite itemSprite, string itemName, int statCount)
     {
         this.itemType = itemType;
         this.itemSprite = itemSprite;
         this.rarity = rarity;
         this.itemName = itemName;
         this.value = 100;
+        this.statCount = statCount;
     }
 }

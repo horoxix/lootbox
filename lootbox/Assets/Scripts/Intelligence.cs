@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Intelligence : Stat {
 
-    // Use this for initialization
-    void Start()
+    public Intelligence(StatType statType, Rarity rarity, AffectedStat affectedStat, int statValue)
     {
-        statName = "Intelligence";
-        rarity = Rarity.COMMON;
-        affectedStat = AffectedStat.THEME;
+        this.statType = statType;
+        this.statValue = statValue;
+        this.affectedStat = affectedStat;
+        this.rarity = rarity;
     }
 }

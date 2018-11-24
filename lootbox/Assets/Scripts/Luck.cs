@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Luck : Stat {
-
-    // Use this for initialization
-    void Start()
+    public Luck(StatType statType, Rarity rarity, AffectedStat affectedStat, int statValue)
     {
-        statName = "Luck";
-        rarity = Rarity.RARE;
-        affectedStat = AffectedStat.RARITY;
+        this.statType = statType;
+        this.statValue = statValue;
+        this.affectedStat = affectedStat;
+        this.rarity = rarity;
     }
 }

@@ -13,12 +13,14 @@ public class Open : MonoBehaviour {
     private RandomManager randomManager;
     private ItemFactory itemFactory;
     private WeaponFactory weaponFactory;
+    private StatFactory statFactory;
 
     private void Start()
     {
         user = FindObjectOfType<User>();
         itemFactory = new ConcreteItemFactory();
         weaponFactory = new ConcreteWeaponFactory();
+        statFactory = new ConcreteStatFactory();
         randomManager = FindObjectOfType<RandomManager>();
     }
 
@@ -39,15 +41,17 @@ public class Open : MonoBehaviour {
                 user.myInventory.items.Add(addedWeapon);
                 uiSprite.sprite = addedWeapon.itemSprite;
                 uiSprite.enabled = true;
+                thisObject.transform.GetChild(0).gameObject.SetActive(true);
             }
             else
             {
                 Item item = itemFactory.GetItem(itemType);
                 Item addedItem = thisObject.AddComponent(item.GetType()) as Item;
-                addedItem.Instantiate(item.itemType, item.rarity, item.itemSprite, item.itemName);
+                addedItem.Instantiate(item.itemType, item.rarity, item.itemSprite, item.itemName, statFactory.GenerateStatAmount(addedItem.rarity));
                 user.myInventory.items.Add(addedItem);
                 uiSprite.sprite = addedItem.itemSprite;
                 uiSprite.enabled = true;
+                thisObject.transform.GetChild(0).gameObject.SetActive(true);
             }
         }
         StartCoroutine(DisplayNames());

@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class Stat : MonoBehaviour {
     protected string statName;
+    protected StatType statType;
     protected AffectedStat affectedStat;
     protected Rarity rarity;
+    protected int statValue;
+
+    public enum StatType
+    {
+        LUCK,
+        STRENGTH,
+        DEXTERITY,
+        INTELLIGENCE
+    }
 
     // How often stat boost will appear as an affix.
-    protected enum Rarity
+    public enum Rarity
     {
         COMMON,
         UNCOMMON,
@@ -18,7 +28,7 @@ public class Stat : MonoBehaviour {
     }
 
     // The sub-stat modified by the parent stat.
-    protected enum AffectedStat
+    public enum AffectedStat
     {
         RARITY,
         LOOT_AMOUNT,
@@ -27,13 +37,11 @@ public class Stat : MonoBehaviour {
         THEME
     }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void Instantiate(StatType statType, Rarity rarity, AffectedStat affectedStat, int statValue)
+    {
+        this.statType = statType;
+        this.statValue = statValue;
+        this.affectedStat = affectedStat;
+        this.rarity = rarity;
+    }
 }

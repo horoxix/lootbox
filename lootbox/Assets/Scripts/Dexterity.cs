@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Dexterity : Stat {
 
-    // Use this for initialization
-    void Start()
+    public Dexterity(StatType statType, Rarity rarity, AffectedStat affectedStat, int statValue)
     {
-        statName = "Dexterity";
-        rarity = Rarity.UNCOMMON;
-        affectedStat = AffectedStat.ACCUMULATION;
+        this.statType = statType;
+        this.statValue = statValue;
+        this.affectedStat = affectedStat;
+        this.rarity = rarity;
     }
 }

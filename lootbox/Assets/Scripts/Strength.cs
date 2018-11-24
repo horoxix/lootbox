@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Strength : Stat {
-
-    // Use this for initialization
-    void Start()
+    public Strength(StatType statType, Rarity rarity, AffectedStat affectedStat, int statValue)
     {
-        statName = "Strength";
-        rarity = Rarity.UNCOMMON;
-        affectedStat = AffectedStat.LOOT_AMOUNT;
+        this.statType = statType;
+        this.statValue = statValue;
+        this.affectedStat = affectedStat;
+        this.rarity = rarity;
     }
 }
