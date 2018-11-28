@@ -43,4 +43,11 @@ public class Loot : MonoBehaviour {
         HideButtons();
     }
 
+    private void OnMouseDown()
+    {
+        Image image = gameObject.GetComponent<Image>();
+        Item item = gameObject.GetComponent<Item>();
+        image.sprite = item.itemSprite;
+    }
+
 }

@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 126103413}
   - component: {fileID: 126103412}
   - component: {fileID: 126103414}
+  - component: {fileID: 126103415}
   m_Layer: 5
   m_Name: LootSlot3
   m_TagString: Untagged
@@ -195,6 +196,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493df707c1716b54497ba874b4cb9c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &126103415
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 126103410}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -37.998726, y: -37.890266}
+  serializedVersion: 2
+  m_Radius: 36.023785
 --- !u!224 &198887619 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224314518029270282, guid: f06db044119ee3e4b972a08087e4a251,
@@ -211,6 +227,7 @@ GameObject:
   - component: {fileID: 219476139}
   - component: {fileID: 219476138}
   - component: {fileID: 219476140}
+  - component: {fileID: 219476141}
   m_Layer: 5
   m_Name: LootSlot4
   m_TagString: Untagged
@@ -282,6 +299,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493df707c1716b54497ba874b4cb9c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &219476141
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 219476136}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 37.890167, y: 1.2399377}
+  serializedVersion: 2
+  m_Radius: 37.20949
 --- !u!1 &232496836
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,10 +344,10 @@ RectTransform:
   m_Father: {fileID: 685357341}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000038146973, y: 0.0000076293945}
-  m_SizeDelta: {x: 424, y: 754}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &232496838
 MonoBehaviour:
@@ -329,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.23584908, g: 0.19691174, b: 0.19691174, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -338,7 +370,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 235f302961333b24ca8fdc78c218ba05, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -826,6 +858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22dca451bb5416b459441c584712f3b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: []
 --- !u!4 &664650227
 Transform:
   m_ObjectHideFlags: 0
@@ -1098,6 +1131,7 @@ GameObject:
   - component: {fileID: 756814499}
   - component: {fileID: 756814498}
   - component: {fileID: 756814500}
+  - component: {fileID: 756814501}
   m_Layer: 5
   m_Name: LootSlot2
   m_TagString: Untagged
@@ -1169,6 +1203,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493df707c1716b54497ba874b4cb9c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &756814501
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 756814496}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.05427897, y: -37.890266}
+  serializedVersion: 2
+  m_Radius: 34.83798
 --- !u!1 &800892045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,6 +1229,7 @@ GameObject:
   - component: {fileID: 800892048}
   - component: {fileID: 800892047}
   - component: {fileID: 800892049}
+  - component: {fileID: 800892050}
   m_Layer: 5
   m_Name: LootSlot
   m_TagString: Untagged
@@ -1251,6 +1301,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493df707c1716b54497ba874b4cb9c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &800892050
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 800892045}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 37.890167, y: -37.890266}
+  serializedVersion: 2
+  m_Radius: 34.837963
 --- !u!1 &863976758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,7 +1349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 36.85, y: 0.39}
+  m_AnchoredPosition: {x: 36.85, y: 0.39000034}
   m_SizeDelta: {x: 46.1, y: 27.43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863976760
@@ -2453,11 +2518,11 @@ RectTransform:
   m_Father: {fileID: 685357341}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 129}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -184}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1811657228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2573,8 +2638,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 48.6, y: 73.8}
-  m_SizeDelta: {x: 98.45, y: 118.65}
+  m_AnchoredPosition: {x: 47.7, y: 81.2}
+  m_SizeDelta: {x: 31.68, y: 55.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1870786672
 MonoBehaviour:
@@ -2647,7 +2712,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f150e82d012930c4abde963bccf53015, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b0e221740754c640827fe37969d9090, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2728,11 +2793,11 @@ RectTransform:
   m_Father: {fileID: 685357341}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 146.7, y: -362.1}
-  m_SizeDelta: {x: 130.5, y: 29.8}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -103, y: -4}
+  m_SizeDelta: {x: 130.5, y: 29.800003}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &1920841443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2934,6 +2999,7 @@ GameObject:
   - component: {fileID: 1978591650}
   - component: {fileID: 1978591649}
   - component: {fileID: 1978591651}
+  - component: {fileID: 1978591652}
   m_Layer: 5
   m_Name: LootSlot5
   m_TagString: Untagged
@@ -3005,6 +3071,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493df707c1716b54497ba874b4cb9c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &1978591652
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1978591647}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -38.591576, y: -1.131608}
+  serializedVersion: 2
+  m_Radius: 36.616596
 --- !u!1001 &2051450583
 Prefab:
   m_ObjectHideFlags: 0

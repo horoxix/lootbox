@@ -11,13 +11,11 @@ public class Open : MonoBehaviour {
     LootManager lootManager;
     private ItemFactory itemFactory;
     private WeaponFactory weaponFactory;
-    private StatFactory statFactory;
 
     private void Start()
     {
         itemFactory = new ConcreteItemFactory();
         weaponFactory = new ConcreteWeaponFactory();
-        statFactory = new ConcreteStatFactory();
     }
 
     // On click to OpenBox, looks at how many items are in the box and adds an Item.
@@ -34,7 +32,7 @@ public class Open : MonoBehaviour {
                 thisObject.AddComponent<Weapon>();
                 Weapon weapon = weaponFactory.Create(GenerateWeaponType(), thisObject);
                 User.user.inventory.Add(weapon);
-                uiSprite.sprite = weapon.itemSprite;
+                uiSprite.sprite = GenerateRaritySprite(RaritySprites.raritySprites, weapon.rarity);
                 uiSprite.enabled = true;
                 thisObject.transform.GetChild(0).gameObject.SetActive(true);
             }
@@ -43,7 +41,7 @@ public class Open : MonoBehaviour {
                 thisObject.AddComponent<Item>();
                 Item item = itemFactory.GetItem(itemType, thisObject);
                 User.user.inventory.Add(item);
-                uiSprite.sprite = item.itemSprite;
+                uiSprite.sprite = GenerateRaritySprite(RaritySprites.raritySprites, item.rarity);
                 uiSprite.enabled = true;
                 thisObject.transform.GetChild(0).gameObject.SetActive(true);
             }
@@ -70,5 +68,23 @@ public class Open : MonoBehaviour {
     {
         Weapon.WeaponType weaponType = (Weapon.WeaponType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Weapon.WeaponType)).Length);
         return weaponType;
+    }
+
+    protected Sprite GenerateRaritySprite(Dictionary<string, Sprite> dict, Item.Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case Item.Rarity.COMMON:
+                return dict["Common"];
+            case Item.Rarity.UNCOMMON:
+                return dict["Uncommon"];
+            case Item.Rarity.RARE:
+                return dict["Rare"];
+            case Item.Rarity.EPIC:
+                return dict["Epic"];
+            case Item.Rarity.LEGENDARY:
+                return dict["Legendary"];
+        }
+        throw new NotImplementedException();
     }
 }
