@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Loot : MonoBehaviour {
-    private User user;
     private Text currencyText;
     private void Start()
     {
-        user = FindObjectOfType<User>();
         currencyText = FindObjectOfType<Currency>().GetComponent<Text>();
     }
 
@@ -38,8 +36,8 @@ public class Loot : MonoBehaviour {
     public void Disenchant()
     {
         Item item = gameObject.GetComponent<Item>();
-        user.currency += item.value;
-        currencyText.text = user.currency.ToString();
+        User.user.Currency += item.value;
+        currencyText.text = User.user.Currency.ToString();
         RemoveImage();
         RemoveItem();
         HideButtons();

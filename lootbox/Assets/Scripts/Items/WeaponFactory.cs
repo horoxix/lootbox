@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class WeaponFactory
 { 
-    public abstract Weapon Create(Weapon.WeaponType weaponType);
+    public abstract Weapon Create(Weapon.WeaponType weaponType, GameObject gameObject);
 
     RandomManager randomManager = new RandomManager();
 

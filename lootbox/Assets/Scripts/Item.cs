@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour{
+public class Item : MonoBehaviour{
     public string itemName;
     public Rarity rarity;
     public Keywords keyword;
@@ -64,7 +64,7 @@ public abstract class Item : MonoBehaviour{
         }
     }
 
-    public void Instantiate(ItemType itemType, Rarity rarity, Sprite itemSprite, string itemName, int statCount)
+    public void Init(ItemType itemType, Rarity rarity, Sprite itemSprite, string itemName, int statCount)
     {
         this.itemType = itemType;
         this.itemSprite = itemSprite;

@@ -4,28 +4,36 @@ using UnityEngine;
 
 public class ConcreteItemFactory : ItemFactory {
 
-    public override Item GetItem(Item.ItemType itemType)
+    public override Item GetItem(Item.ItemType itemType, GameObject gameObject)
     {
         Item.Rarity rarity = GenerateRarity();
         Item.Keywords keyword = GenerateKeyword();
+        Item item = gameObject.GetComponent<Item>();
+        StatFactory statFactory = new ConcreteStatFactory();
+
         switch (itemType)
         {
-            case Item.ItemType.WEAPON:
-                return new Weapon();
             case Item.ItemType.ARMOR:
-                return new Armor(Item.ItemType.ARMOR, rarity, GenerateItemSprite(ItemSprites.armorSprites, rarity), rarity +  " " + keyword + " Armor");
+                item.Init(Item.ItemType.ARMOR, rarity, GenerateItemSprite(ItemSprites.armorSprites, rarity), rarity + " " + keyword + " Armor", statFactory.GenerateStatAmount(rarity));
+                return item;
             case Item.ItemType.BOOTS:
-                return new Boots(Item.ItemType.BOOTS, rarity, GenerateItemSprite(ItemSprites.bootsSprites, rarity), rarity + " " + keyword + " Boots");
+                item.Init(Item.ItemType.BOOTS, rarity, GenerateItemSprite(ItemSprites.bootsSprites, rarity), rarity + " " + keyword + " Boots", statFactory.GenerateStatAmount(rarity));
+                return item;
             case Item.ItemType.HELM:
-                return new Helm(Item.ItemType.HELM, rarity, GenerateItemSprite(ItemSprites.helmSprites, rarity), rarity + " " + keyword + " Helm");
+                item.Init(Item.ItemType.HELM, rarity, GenerateItemSprite(ItemSprites.helmSprites, rarity), rarity + " " + keyword + " Helm", statFactory.GenerateStatAmount(rarity));
+                return item;
             case Item.ItemType.BELT:
-                return new Belt(Item.ItemType.BELT, rarity, GenerateItemSprite(ItemSprites.beltsSprites, rarity), rarity + " " + keyword + " Belt");
+                item.Init(Item.ItemType.BELT, rarity, GenerateItemSprite(ItemSprites.beltsSprites, rarity), rarity + " " + keyword + " Belt", statFactory.GenerateStatAmount(rarity));
+                return item;
             case Item.ItemType.ACCESSORY:
-                return new Accessory(Item.ItemType.ACCESSORY, rarity, GenerateItemSprite(ItemSprites.accessorySprites, rarity), rarity + " " + keyword + " Accessory");
+                item.Init(Item.ItemType.ACCESSORY, rarity, GenerateItemSprite(ItemSprites.accessorySprites, rarity), rarity + " " + keyword + " Accessory", statFactory.GenerateStatAmount(rarity));
+                return item;
             case Item.ItemType.PANTS:
-                return new Pants(Item.ItemType.PANTS, rarity, GenerateItemSprite(ItemSprites.pantsSprites, rarity), rarity + " " + keyword + " Pants");
+                item.Init(Item.ItemType.PANTS, rarity, GenerateItemSprite(ItemSprites.pantsSprites, rarity), rarity + " " + keyword + " Pants", statFactory.GenerateStatAmount(rarity));
+                return item;
             case Item.ItemType.GLOVES:
-                return new Gloves(Item.ItemType.GLOVES, rarity, GenerateItemSprite(ItemSprites.glovesSprites, rarity), rarity + " " + keyword + " Gloves");
+                item.Init(Item.ItemType.GLOVES, rarity, GenerateItemSprite(ItemSprites.glovesSprites, rarity), rarity + " " + keyword + " Gloves", statFactory.GenerateStatAmount(rarity));
+                return item;
             default:
                 Debug.Log("Item Type not found");
                 break;

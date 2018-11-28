@@ -8,6 +8,7 @@ public abstract class StatFactory {
     public abstract Stat GetStat(Stat.StatType statType, Item item);
 
     RandomManager randomManager = new RandomManager();
+    public static StatFactory statFactory;
 
     public int GenerateStatAmount(Item.Rarity rarity)
     {
