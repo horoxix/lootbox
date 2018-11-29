@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3277b411e8afd40b98ccf796586626, type: 3}
+  m_Name: damaged epic accessory-564067e3-4f78-4c51-aadd-5835a5a060a7
+  m_EditorClassIdentifier: 
+  rarity: 3
+  keyword: 1
+  itemType: 6
+  itemName: damaged epic accessory
+  itemTypeName: accessory
+  itemSprite: {fileID: 21300000, guid: b58856a683f2ab044a39f4f7905195bf, type: 3}
+  value: 100
+  statCount: 1

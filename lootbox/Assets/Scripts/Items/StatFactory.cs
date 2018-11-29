@@ -7,7 +7,6 @@ public abstract class StatFactory {
 
     public abstract Stat GetStat(Stat.StatType statType, Item item);
 
-    RandomManager randomManager = new RandomManager();
     public static StatFactory statFactory;
 
     public int GenerateStatAmount(Item.Rarity rarity)
@@ -30,8 +29,8 @@ public abstract class StatFactory {
 
     public Stat.StatType GenerateStatType()
     {
-        randomManager.SetAnimationCurve();
-        return (Stat.StatType)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.CumulativeProbability));
+        RandomManager.randomManager.SetAnimationCurve();
+        return (Stat.StatType)Mathf.RoundToInt(RandomManager.randomManager.CurveWeightedRandom(RandomManager.randomManager.cumulativeProbability));
     }
 
     protected void GenerateAmountOfStats(int numberOfStats)

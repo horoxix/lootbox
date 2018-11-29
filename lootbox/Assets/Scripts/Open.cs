@@ -24,29 +24,19 @@ public class Open : MonoBehaviour {
     {
         for(int i=0; i < lootBox.ItemCount; i++)
         {
-            Item.ItemType itemType = GenerateItemType();
             GameObject thisObject = lootManager.lootSlots[i].gameObject;
             Image uiSprite = thisObject.GetComponent<Image>();
-            if (itemType == Item.ItemType.WEAPON)
-            {
-                thisObject.AddComponent<Weapon>();
-                Weapon weapon = weaponFactory.Create(GenerateWeaponType(), thisObject);
-                User.user.inventory.Add(weapon);
-                uiSprite.sprite = GenerateRaritySprite(RaritySprites.raritySprites, weapon.rarity);
-                uiSprite.enabled = true;
-                thisObject.transform.GetChild(0).gameObject.SetActive(true);
-            }
-            else
-            {
-                thisObject.AddComponent<Item>();
-                Item item = itemFactory.GetItem(itemType, thisObject);
-                User.user.inventory.Add(item);
-                uiSprite.sprite = GenerateRaritySprite(RaritySprites.raritySprites, item.rarity);
-                uiSprite.enabled = true;
-                thisObject.transform.GetChild(0).gameObject.SetActive(true);
-            }
+            StartCoroutine(CreateLoot(thisObject, uiSprite));
         }
         StartCoroutine(DisplayNames());
+    }
+
+    private void AddItemToInventory(GameObject thisObject, Item item, Image uiSprite)
+    {
+        User.user.inventory.Add(item);
+        uiSprite.sprite = GenerateRaritySprite(RaritySprites.raritySprites, item.rarity);
+        uiSprite.enabled = true;
+        thisObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public IEnumerator DisplayNames()
@@ -56,6 +46,15 @@ public class Open : MonoBehaviour {
         {
             Debug.Log(User.user.inventory[j].itemName);
         }
+    }
+
+    public IEnumerator CreateLoot(GameObject thisObject, Image uiSprite)
+    {
+        Item item = CreateItem.Create();
+        yield return new WaitForSeconds(0.5f);
+        thisObject.GetComponent<Loot>().attachedItem = item;
+        AddItemToInventory(thisObject, item, uiSprite);
+        yield return new WaitForSeconds(0.5f);
     }
 
     public Item.ItemType GenerateItemType()

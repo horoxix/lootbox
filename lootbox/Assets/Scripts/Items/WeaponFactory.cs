@@ -7,18 +7,17 @@ public abstract class WeaponFactory
 { 
     public abstract Weapon Create(Weapon.WeaponType weaponType, GameObject gameObject);
 
-    RandomManager randomManager = new RandomManager();
 
     public Item.Rarity GenerateRarity()
     {
-        randomManager.SetAnimationCurve();
-        return (Item.Rarity)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.CumulativeProbability));
+        RandomManager.randomManager.SetAnimationCurve();
+        return (Item.Rarity)Mathf.RoundToInt(RandomManager.randomManager.CurveWeightedRandom(RandomManager.randomManager.cumulativeProbability));
     }
 
     protected Item.Keywords GenerateKeyword()
     {
-        randomManager.SetAnimationCurve();
-        return (Item.Keywords)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.CumulativeProbability));
+        RandomManager.randomManager.SetAnimationCurve();
+        return (Item.Keywords)Mathf.RoundToInt(RandomManager.randomManager.CurveWeightedRandom(RandomManager.randomManager.cumulativeProbability));
     }
 
     protected Sprite GenerateWeaponSprite(Dictionary<string, Sprite> dict, Item.Rarity rarity) 

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3277b411e8afd40b98ccf796586626, type: 3}
+  m_Name: damaged common accessory-bbf48668-4a97-49c2-96cd-0ff0458c4308
+  m_EditorClassIdentifier: 
+  rarity: 0
+  keyword: 1
+  itemType: 6
+  itemName: damaged common accessory
+  itemTypeName: accessory
+  itemSprite: {fileID: 21300000, guid: b5bb3a13e282e0d478bb2977e483a357, type: 3}
+  value: 100
+  statCount: 1
