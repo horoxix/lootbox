@@ -7,21 +7,15 @@ using UnityEngine.UI;
 public class Open : MonoBehaviour {
     [SerializeField]
     GameObject Loot;
-    private User user;
     [SerializeField]
     LootManager lootManager;
-    private RandomManager randomManager;
     private ItemFactory itemFactory;
     private WeaponFactory weaponFactory;
-    private StatFactory statFactory;
 
     private void Start()
     {
-        user = FindObjectOfType<User>();
         itemFactory = new ConcreteItemFactory();
         weaponFactory = new ConcreteWeaponFactory();
-        statFactory = new ConcreteStatFactory();
-        randomManager = FindObjectOfType<RandomManager>();
     }
 
     // On click to OpenBox, looks at how many items are in the box and adds an Item.
@@ -30,40 +24,36 @@ public class Open : MonoBehaviour {
     {
         for(int i=0; i < lootBox.ItemCount; i++)
         {
-            Item.ItemType itemType = GenerateItemType();
             GameObject thisObject = lootManager.lootSlots[i].gameObject;
             Image uiSprite = thisObject.GetComponent<Image>();
-            if (itemType == Item.ItemType.WEAPON)
-            {
-                Weapon weapon = weaponFactory.Create(GenerateWeaponType());
-                Weapon addedWeapon = thisObject.AddComponent(weapon.GetType()) as Weapon;
-                addedWeapon.Instantiate(weapon.weaponType, weapon.rarity, weapon.itemSprite, weapon.itemName);
-                user.myInventory.items.Add(addedWeapon);
-                uiSprite.sprite = addedWeapon.itemSprite;
-                uiSprite.enabled = true;
-                thisObject.transform.GetChild(0).gameObject.SetActive(true);
-            }
-            else
-            {
-                Item item = itemFactory.GetItem(itemType);
-                Item addedItem = thisObject.AddComponent(item.GetType()) as Item;
-                addedItem.Instantiate(item.itemType, item.rarity, item.itemSprite, item.itemName, statFactory.GenerateStatAmount(addedItem.rarity));
-                user.myInventory.items.Add(addedItem);
-                uiSprite.sprite = addedItem.itemSprite;
-                uiSprite.enabled = true;
-                thisObject.transform.GetChild(0).gameObject.SetActive(true);
-            }
+            StartCoroutine(CreateLoot(thisObject, uiSprite));
         }
         StartCoroutine(DisplayNames());
+    }
+
+    private void AddItemToInventory(GameObject thisObject, Item item, Image uiSprite)
+    {
+        User.user.inventory.Add(item);
+        uiSprite.sprite = GenerateRaritySprite(RaritySprites.raritySprites, item.rarity);
+        uiSprite.enabled = true;
     }
 
     public IEnumerator DisplayNames()
     {
         yield return new WaitForSeconds(1.0f);
-        for (int j = 0; j < user.myInventory.items.Count; j++)
+        for (int j = 0; j < User.user.inventory.Count; j++)
         {
-            Debug.Log(user.myInventory.items[j].itemName);
+            Debug.Log(User.user.inventory[j].itemName);
         }
+    }
+
+    public IEnumerator CreateLoot(GameObject thisObject, Image uiSprite)
+    {
+        Item item = CreateItem.Create();
+        yield return new WaitForSeconds(0.5f);
+        thisObject.GetComponent<Loot>().attachedItem = item;
+        AddItemToInventory(thisObject, item, uiSprite);
+        yield return new WaitForSeconds(0.5f);
     }
 
     public Item.ItemType GenerateItemType()
@@ -76,5 +66,23 @@ public class Open : MonoBehaviour {
     {
         Weapon.WeaponType weaponType = (Weapon.WeaponType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Weapon.WeaponType)).Length);
         return weaponType;
+    }
+
+    protected Sprite GenerateRaritySprite(Dictionary<string, Sprite> dict, Item.Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case Item.Rarity.COMMON:
+                return dict["Common"];
+            case Item.Rarity.UNCOMMON:
+                return dict["Uncommon"];
+            case Item.Rarity.RARE:
+                return dict["Rare"];
+            case Item.Rarity.EPIC:
+                return dict["Epic"];
+            case Item.Rarity.LEGENDARY:
+                return dict["Legendary"];
+        }
+        throw new NotImplementedException();
     }
 }

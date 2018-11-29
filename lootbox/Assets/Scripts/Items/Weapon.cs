@@ -18,7 +18,7 @@ public class Weapon : Item {
         SPEAR
     }
 
-    public void Instantiate(WeaponType weaponType, Rarity rarity, Sprite itemSprite, string itemName)
+    public void Init(WeaponType weaponType, Rarity rarity, Sprite itemSprite, string itemName)
     {
         this.weaponType = weaponType;
         this.itemSprite = itemSprite;

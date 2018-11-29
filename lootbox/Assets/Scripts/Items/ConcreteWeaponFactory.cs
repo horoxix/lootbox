@@ -5,22 +5,28 @@ using UnityEngine;
 
 public class ConcreteWeaponFactory : WeaponFactory {
 
-    public override Weapon Create(Weapon.WeaponType weaponType)
+    public override Weapon Create(Weapon.WeaponType weaponType, GameObject gameObject)
     {
         Item.Rarity rarity = GenerateRarity();
         Item.Keywords keyword = GenerateKeyword();
+        Weapon weapon = gameObject.GetComponent<Weapon>();
         switch (weaponType)
         {
             case Weapon.WeaponType.SWORD:
-                return new Sword(Weapon.WeaponType.SWORD, rarity, GenerateWeaponSprite(ItemSprites.swordSprites, rarity), rarity + " " + keyword + " Sword");
+                weapon.Init(Weapon.WeaponType.SWORD, rarity, GenerateWeaponSprite(ItemSprites.swordSprites, rarity), rarity + " " + keyword + " Sword");
+                return weapon;
             case Weapon.WeaponType.MACE:
-                return new Mace(Weapon.WeaponType.MACE, rarity, GenerateWeaponSprite(ItemSprites.maceSprites, rarity), rarity + " " + keyword + " Mace");
+                weapon.Init(Weapon.WeaponType.MACE, rarity, GenerateWeaponSprite(ItemSprites.maceSprites, rarity), rarity + " " + keyword + " Mace");
+                return weapon;
             case Weapon.WeaponType.BOW:
-                return new Bow(Weapon.WeaponType.BOW, rarity, GenerateWeaponSprite(ItemSprites.bowSprites, rarity), rarity + " " + keyword + " Bow");
+                weapon.Init(Weapon.WeaponType.BOW, rarity, GenerateWeaponSprite(ItemSprites.bowSprites, rarity), rarity + " " + keyword + " Bow");
+                return weapon;
             case Weapon.WeaponType.AXE:
-                return new Axe(Weapon.WeaponType.AXE, rarity, GenerateWeaponSprite(ItemSprites.axeSprites, rarity), rarity + " " + keyword + " Axe");
+                weapon.Init(Weapon.WeaponType.AXE, rarity, GenerateWeaponSprite(ItemSprites.axeSprites, rarity), rarity + " " + keyword + " Axe");
+                return weapon;
             case Weapon.WeaponType.SPEAR:
-                return new Spear(Weapon.WeaponType.SPEAR, rarity, GenerateWeaponSprite(ItemSprites.spearSprites, rarity), rarity + " " + keyword + " Spear");
+                weapon.Init(Weapon.WeaponType.SPEAR, rarity, GenerateWeaponSprite(ItemSprites.spearSprites, rarity), rarity + " " + keyword + " Spear");
+                return weapon;
             default:
                 Debug.Log("Weapon Type not found");
                 break;

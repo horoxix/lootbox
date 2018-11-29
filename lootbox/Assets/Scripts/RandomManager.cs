@@ -2,41 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomManager : MonoBehaviour {
-    [SerializeField] private AnimationCurve cumulativeProbability;
-    private Keyframe baseKeyFrame = new Keyframe (0, 0);
-    private Keyframe middleKeyFrame = new Keyframe(0.8f, 2);
-    private Keyframe endingKeyFrame = new Keyframe(1, 4);
-    private float middleSmooth = -.05f;
-    private float endingSmooth = -2f;
-
-    public static System.Random random = new System.Random();
-
-    public AnimationCurve CumulativeProbability
-    {
-        get
-        {
-            return cumulativeProbability;
-        }
-
-        set
-        {
-            cumulativeProbability = value;
-        }
-    }
+public class RandomManager {
+    public AnimationCurve cumulativeProbability;
+    public static RandomManager randomManager;
 
     public void SetAnimationCurve()
     {
-        cumulativeProbability = new AnimationCurve(baseKeyFrame, middleKeyFrame, endingKeyFrame);
-        cumulativeProbability.SmoothTangents(1, middleSmooth);
-        cumulativeProbability.SmoothTangents(2, endingSmooth);
-    }
-
-    private void Start()
-    {
-        cumulativeProbability = new AnimationCurve(baseKeyFrame, middleKeyFrame, endingKeyFrame);
-        cumulativeProbability.SmoothTangents(1, middleSmooth);
-        cumulativeProbability.SmoothTangents(2, endingSmooth);
+        cumulativeProbability = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.8f, 2), new Keyframe(1, 4));
+        cumulativeProbability.SmoothTangents(1, -.05f);
+        cumulativeProbability.SmoothTangents(2, -2f);
     }
 
     public float CurveWeightedRandom(AnimationCurve curve)
@@ -47,6 +21,7 @@ public class RandomManager : MonoBehaviour {
     // TODO
     public Type RandomList<T>(List<T> list)
     {
+        System.Random random = new System.Random();
         return list[random.Next(list.Count)].GetType();
     }
 

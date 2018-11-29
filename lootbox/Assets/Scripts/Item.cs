@@ -2,16 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour{
-    public string itemName;
+[CreateAssetMenu(fileName = "ItemData", menuName = "Item", order = 1)]
+public class Item : ScriptableObject{
     public Rarity rarity;
     public Keywords keyword;
     public ItemType itemType;
-    protected RandomManager randomManager;
+    public string itemName = "Name";
+    public string itemTypeName = "itemTypeName";
     [SerializeField]
-    public Sprite itemSprite;
-    public int value;
-    public int statCount;
+    public Sprite itemSprite = null;
+    public Dictionary<string, Sprite> itemSpriteList;
+    public int value = 100;
+    public int statCount = 1;
+    public ItemNames itemNameList;
+
+    private void OnEnable()
+    {
+        itemType = (ItemType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(ItemType)).Length);
+        itemTypeName = itemType.ToString().ToLower();
+        RandomManager randomManager = new RandomManager();
+        randomManager.SetAnimationCurve();
+        rarity = (Rarity)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.cumulativeProbability));
+        keyword = (Keywords)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.cumulativeProbability));
+    }
 
     // Enum list of possible Item Types.
     public enum ItemType
@@ -47,24 +60,7 @@ public abstract class Item : MonoBehaviour{
         EXQUISITE
     }
 
-    protected void GenerateItemType()
-    {
-        itemType = (ItemType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(ItemType)).Length);
-    }
-
-
-
-    // Debug purposes. Logs all time/key pairs for animationCurve.
-    private void DebugLogKeys()
-    {
-        for (int i = 0; i < randomManager.CumulativeProbability.keys.Length; i++)
-        {
-            Debug.Log("Time: " + randomManager.CumulativeProbability.keys[i].time);
-            Debug.Log("Key: " + randomManager.CumulativeProbability.keys[i].value);
-        }
-    }
-
-    public void Instantiate(ItemType itemType, Rarity rarity, Sprite itemSprite, string itemName, int statCount)
+    public void Init(ItemType itemType, Rarity rarity, Sprite itemSprite, string itemName, int statCount)
     {
         this.itemType = itemType;
         this.itemSprite = itemSprite;

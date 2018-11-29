@@ -11,5 +11,4 @@ public class CommonLootBox : LootBox {
         cost = 100;
         dropRate = 1;
 	}
-	
 }

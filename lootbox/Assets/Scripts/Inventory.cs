@@ -2,11 +2,9 @@
 using UnityEngine;
 
 public class Inventory : MonoBehaviour {
-    [SerializeField]
-    public List<Item> items;
 
-    private void Start()
-    {
-        items = new List<Item>();
-    }
+    public static List<Item> items;
+    public static Inventory inventory;
+
+   
 }
