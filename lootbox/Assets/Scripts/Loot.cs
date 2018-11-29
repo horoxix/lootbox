@@ -16,13 +16,16 @@ public class Loot : MonoBehaviour {
     public void RemoveImage()
     {
         Image image = gameObject.GetComponent<Image>();
+        Image childImage = gameObject.transform.GetChild(0).GetComponent<Image>();
+        childImage.sprite = null;
         image.sprite = null;
+        childImage.enabled = false;
         image.enabled = false;
         HideButtons();
     }
 
     // Destroys component of loot
-    public void RemoveItem()
+    public void RemoveAttachedItem()
     {
         attachedItem = null;
     }
@@ -30,33 +33,56 @@ public class Loot : MonoBehaviour {
     // Hides disenchant and send to inventory buttons
     public void HideButtons()
     {
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        gameObject.transform.GetChild(1).gameObject.SetActive(false);
     }
 
     // Disenchants based on item's value and adds to user.currency
     public void Disenchant()
     {
         Item item = attachedItem;
+        RemoveImage();
+        HideButtons();
         AssetDatabase.DeleteAsset("Assets/Data/" + attachedItem.name.ToString() + ".asset");
+        RemoveAttachedItem();
+        RemoveItem(item);
         User.user.Currency += item.value;
         currencyText.text = User.user.Currency.ToString();
-        RemoveItem(item);
-        RemoveImage();
-        RemoveItem();
-        HideButtons();
     }
 
     public void EmptySlot()
     {
         Item item = attachedItem;
         RemoveImage();
-        RemoveItem();
+        RemoveAttachedItem();
     }
 
     private void OnMouseDown()
     {
         Image image = gameObject.GetComponent<Image>();
-        image.sprite = attachedItem.itemSprite;
+        Transform itemSprite = gameObject.transform.GetChild(0);
+        Transform buttons = gameObject.transform.GetChild(1);
+        Image childImage = itemSprite.GetComponent<Image>();
+        childImage.sprite = attachedItem.itemSprite;
+        childImage.enabled = true;
+        buttons.gameObject.SetActive(true);
+        switch (attachedItem.rarity)
+        {
+            case Item.Rarity.COMMON:
+                image.sprite = Resources.Load<Sprite>("rarityBackground/common");
+                break;
+            case Item.Rarity.UNCOMMON:
+                image.sprite = Resources.Load<Sprite>("rarityBackground/uncommon");
+                break;
+            case Item.Rarity.RARE:
+                image.sprite = Resources.Load<Sprite>("rarityBackground/rare");
+                break;
+            case Item.Rarity.EPIC:
+                image.sprite = Resources.Load<Sprite>("rarityBackground/epic");
+                break;
+            case Item.Rarity.LEGENDARY:
+                image.sprite = Resources.Load<Sprite>("rarityBackground/legendary");
+                break;
+        }
     }
 
     public void RemoveItem(Item itemToRemove)

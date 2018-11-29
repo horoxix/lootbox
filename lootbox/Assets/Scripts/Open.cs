@@ -36,7 +36,6 @@ public class Open : MonoBehaviour {
         User.user.inventory.Add(item);
         uiSprite.sprite = GenerateRaritySprite(RaritySprites.raritySprites, item.rarity);
         uiSprite.enabled = true;
-        thisObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public IEnumerator DisplayNames()

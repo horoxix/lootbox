@@ -9,46 +9,51 @@ public class InventoryManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         SetInventorySlots();
-        SetBackground();
         SetSprites();
-
+        SetBackground();
 	}
 	
-
     void SetSprites()
     {
         for (int i = 0; i < User.user.inventory.Count; i++)
         {
-            Image image = inventorySlots[i].GetComponent<Image>();
+            Image image = inventorySlots[i].transform.GetChild(0).GetComponent<Image>();
             image.enabled = true;
             image.sprite = User.user.inventory[i].itemSprite;
+            inventorySlots[i].GetComponent<InventorySlot>().attachedItem = User.user.inventory[i];
         }
     }
 
     void SetBackground()
     {
-        foreach (Transform child in transform)
+        foreach (Item item in User.user.inventory)
         {
-            Image image = child.GetComponent<Image>();
-            image.enabled = true;
-            Item attachedItem = child.GetComponent<InventorySlot>().attachedItem;
-            switch (attachedItem.rarity)
+            foreach (Transform child in transform)
             {
-                case Item.Rarity.COMMON:
-                    image.sprite = Resources.Load<Sprite>("rarity/common");
-                    break;
-                case Item.Rarity.UNCOMMON:
-                    image.sprite = Resources.Load<Sprite>("rarity/uncommon");
-                    break;
-                case Item.Rarity.RARE:
-                    image.sprite = Resources.Load<Sprite>("rarity/rare");
-                    break;
-                case Item.Rarity.EPIC:
-                    image.sprite = Resources.Load<Sprite>("rarity/epic");
-                    break;
-                case Item.Rarity.LEGENDARY:
-                    image.sprite = Resources.Load<Sprite>("rarity/legendary");
-                    break;
+                Image image = child.GetComponent<Image>();
+                Item attachedItem = child.GetComponent<InventorySlot>().attachedItem;
+                if(attachedItem != null)
+                {
+                    image.enabled = true;
+                    switch (attachedItem.rarity)
+                    {
+                        case Item.Rarity.COMMON:
+                            image.sprite = Resources.Load<Sprite>("rarityBackground/common");
+                            break;
+                        case Item.Rarity.UNCOMMON:
+                            image.sprite = Resources.Load<Sprite>("rarityBackground/uncommon");
+                            break;
+                        case Item.Rarity.RARE:
+                            image.sprite = Resources.Load<Sprite>("rarityBackground/rare");
+                            break;
+                        case Item.Rarity.EPIC:
+                            image.sprite = Resources.Load<Sprite>("rarityBackground/epic");
+                            break;
+                        case Item.Rarity.LEGENDARY:
+                            image.sprite = Resources.Load<Sprite>("rarityBackground/legendary");
+                            break;
+                    }
+                }
             }
         }
     }
@@ -58,10 +63,6 @@ public class InventoryManager : MonoBehaviour {
         foreach (Transform child in transform)
         {
             inventorySlots.Add(child.gameObject);
-            for (int i = 0; i < User.user.inventory.Count; i++)
-            {
-                child.GetComponent<InventorySlot>().attachedItem = User.user.inventory[i];
-            }
         }
     }
 
