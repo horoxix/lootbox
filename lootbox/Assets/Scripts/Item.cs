@@ -14,6 +14,7 @@ public class Item : ScriptableObject{
     public Dictionary<string, Sprite> itemSpriteList;
     public int value = 100;
     public int statCount = 1;
+    public ItemNames itemNameList;
 
     private void OnEnable()
     {
