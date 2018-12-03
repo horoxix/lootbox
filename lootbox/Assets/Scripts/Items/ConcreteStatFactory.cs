@@ -9,13 +9,13 @@ public class ConcreteStatFactory : StatFactory {
         switch (statType)
         {
             case Stat.StatType.LUCK:
-                return new Luck(Stat.StatType.LUCK, Stat.Rarity.EPIC, Stat.AffectedStat.RARITY, GenerateStatValue(GetItemRarity(item)));
+                return new Luck("Luck", Stat.StatType.LUCK, Stat.Rarity.EPIC, Stat.AffectedStat.RARITY, GenerateStatValue(GetItemRarity(item)));
             case Stat.StatType.STRENGTH:
-                return new Strength(Stat.StatType.STRENGTH, Stat.Rarity.COMMON, Stat.AffectedStat.LOOT_AMOUNT, GenerateStatValue(GetItemRarity(item)));
+                return new Strength("Strength", Stat.StatType.STRENGTH, Stat.Rarity.COMMON, Stat.AffectedStat.LOOT_AMOUNT, GenerateStatValue(GetItemRarity(item)));
             case Stat.StatType.DEXTERITY:
-                return new Dexterity(Stat.StatType.DEXTERITY, Stat.Rarity.RARE, Stat.AffectedStat.ACCUMULATION, GenerateStatValue(GetItemRarity(item)));
+                return new Dexterity("Dexterity", Stat.StatType.DEXTERITY, Stat.Rarity.RARE, Stat.AffectedStat.ACCUMULATION, GenerateStatValue(GetItemRarity(item)));
             case Stat.StatType.INTELLIGENCE:
-                return new Intelligence(Stat.StatType.INTELLIGENCE, Stat.Rarity.COMMON, Stat.AffectedStat.THEME, GenerateStatValue(GetItemRarity(item)));
+                return new Intelligence("Intelligence", Stat.StatType.INTELLIGENCE, Stat.Rarity.COMMON, Stat.AffectedStat.THEME, GenerateStatValue(GetItemRarity(item)));
         }
         throw new System.NotImplementedException();
     }

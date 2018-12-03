@@ -29,8 +29,7 @@ public abstract class StatFactory {
 
     public Stat.StatType GenerateStatType()
     {
-        RandomManager.randomManager.SetAnimationCurve();
-        return (Stat.StatType)Mathf.RoundToInt(RandomManager.randomManager.CurveWeightedRandom(RandomManager.randomManager.cumulativeProbability));
+        return (Stat.StatType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Stat.StatType)).Length);
     }
 
     protected void GenerateAmountOfStats(int numberOfStats)

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Dexterity : Stat {
 
-    public Dexterity(StatType statType, Rarity rarity, AffectedStat affectedStat, int statValue)
+    public Dexterity(string statName, StatType statType, Rarity rarity, AffectedStat affectedStat, int statValue)
     {
+        this.StatName = statName;
         this.statType = statType;
-        this.statValue = statValue;
+        this.StatValue = statValue;
         this.affectedStat = affectedStat;
         this.rarity = rarity;
     }
