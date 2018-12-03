@@ -5,10 +5,30 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour {
     public List<GameObject> inventorySlots;
+    public List<Text> modifierSlots;
+    [SerializeField]
+    public Text itemNameText;
+    [SerializeField]
+    public Text itemLevelText;
+    [SerializeField]
+    public Text itemRarityText;
+    [SerializeField]
+    public Text itemKeywordText;
+    [SerializeField]
+    public Text modifier1Text;
+    [SerializeField]
+    public Text modifier2Text;
+    [SerializeField]
+    public Text modifier3Text;
+    [SerializeField]
+    public Text modifier4Text;
+    [SerializeField]
+    public Image itemSprite;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         SetInventorySlots();
+        SetModifierSlots();
         SetSprites();
         SetBackground();
 	}
@@ -64,6 +84,14 @@ public class InventoryManager : MonoBehaviour {
         {
             inventorySlots.Add(child.gameObject);
         }
+    }
+
+    void SetModifierSlots()
+    {
+        modifierSlots.Add(modifier1Text);
+        modifierSlots.Add(modifier2Text);
+        modifierSlots.Add(modifier3Text);
+        modifierSlots.Add(modifier4Text);
     }
 
     public void RemoveItem(Item itemToRemove)

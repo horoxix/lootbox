@@ -13,8 +13,10 @@ public class Item : ScriptableObject{
     public Sprite itemSprite = null;
     public Dictionary<string, Sprite> itemSpriteList;
     public int value = 100;
-    public int statCount = 1;
+    public int statCount;
     public ItemNames itemNameList;
+    public int ItemLevel;
+    public List<Stat> modifierList;
 
     private void OnEnable()
     {
@@ -24,6 +26,14 @@ public class Item : ScriptableObject{
         randomManager.SetAnimationCurve();
         rarity = (Rarity)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.cumulativeProbability));
         keyword = (Keywords)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.cumulativeProbability));
+        StatFactory statFactory = new ConcreteStatFactory();
+        statCount = statFactory.GenerateStatAmount(rarity);
+        modifierList = new List<Stat>();
+        for(int i=0; i < statCount; i++)
+        {
+            modifierList.Add(statFactory.GetStat(statFactory.GenerateStatType(), this));
+            Debug.Log(modifierList[i].StatName + " " + modifierList[i].StatValue);
+        }
     }
 
     // Enum list of possible Item Types.
@@ -58,6 +68,14 @@ public class Item : ScriptableObject{
         MAGIC,
         PERFECT,
         EXQUISITE
+    }
+
+    public enum Modifier
+    {
+        LUCK,
+        STRENGTH,
+        DEXTERITY,
+        INTELLIGENCE
     }
 
     public void Init(ItemType itemType, Rarity rarity, Sprite itemSprite, string itemName, int statCount)

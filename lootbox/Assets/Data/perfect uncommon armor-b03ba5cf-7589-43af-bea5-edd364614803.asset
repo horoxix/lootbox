@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3277b411e8afd40b98ccf796586626, type: 3}
+  m_Name: perfect uncommon armor-b03ba5cf-7589-43af-bea5-edd364614803
+  m_EditorClassIdentifier: 
+  rarity: 1
+  keyword: 4
+  itemType: 1
+  itemName: perfect uncommon armor
+  itemTypeName: armor
+  itemSprite: {fileID: 21300000, guid: 834d5506569a83f49a7101f5a93aceb1, type: 3}
+  value: 100
+  statCount: 2
+  itemNameList: {fileID: 0}
+  ItemLevel: 0

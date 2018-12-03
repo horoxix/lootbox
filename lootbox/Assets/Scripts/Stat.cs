@@ -2,12 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stat : MonoBehaviour {
-    protected string statName;
+public class Stat {
+    private string statName;
     protected StatType statType;
     protected AffectedStat affectedStat;
     protected Rarity rarity;
-    protected int statValue;
+    private int statValue;
+
+    public int StatValue
+    {
+        get
+        {
+            return statValue;
+        }
+
+        set
+        {
+            statValue = value;
+        }
+    }
+
+    public string StatName
+    {
+        get
+        {
+            return statName;
+        }
+
+        set
+        {
+            statName = value;
+        }
+    }
 
     public enum StatType
     {
@@ -37,10 +63,11 @@ public class Stat : MonoBehaviour {
         THEME
     }
 
-    public void Instantiate(StatType statType, Rarity rarity, AffectedStat affectedStat, int statValue)
+    public void Instantiate(string statName, StatType statType, Rarity rarity, AffectedStat affectedStat, int statValue)
     {
+        this.statName = statName;
         this.statType = statType;
-        this.statValue = statValue;
+        this.StatValue = statValue;
         this.affectedStat = affectedStat;
         this.rarity = rarity;
     }
