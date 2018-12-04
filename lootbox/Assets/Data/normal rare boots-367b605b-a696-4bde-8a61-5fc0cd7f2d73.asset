@@ -9,15 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e3277b411e8afd40b98ccf796586626, type: 3}
-  m_Name: perfect common helm-9c088906-cbbe-4b30-8506-0ec012f801b9
+  m_Name: normal rare boots-367b605b-a696-4bde-8a61-5fc0cd7f2d73
   m_EditorClassIdentifier: 
-  rarity: 0
-  keyword: 4
-  itemType: 4
-  itemName: perfect common helm
-  itemTypeName: helm
-  itemSprite: {fileID: 21300000, guid: 7330ebf69e8bf7d4ebcff8e63dc41114, type: 3}
+  rarity: 2
+  keyword: 0
+  itemType: 3
+  itemName: normal rare boots
+  itemTypeName: boots
+  itemSprite: {fileID: 21300000, guid: 822bafafb3d42014d8b48fdee278ba57, type: 3}
   value: 100
-  statCount: 1
+  statCount: 3
   itemNameList: {fileID: 0}
-  ItemLevel: 1
+  ItemLevel: 28
+  equipped: 0

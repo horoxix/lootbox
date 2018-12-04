@@ -9,15 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e3277b411e8afd40b98ccf796586626, type: 3}
-  m_Name: normal epic gloves-6d02f3de-1228-4e9d-8099-05b6a0d41216
+  m_Name: normal common gloves-e9c19f8d-2d0b-4c51-aec6-532c1167324c
   m_EditorClassIdentifier: 
-  rarity: 3
+  rarity: 0
   keyword: 0
   itemType: 7
-  itemName: normal epic gloves
+  itemName: normal common gloves
   itemTypeName: gloves
-  itemSprite: {fileID: 21300000, guid: e52d5d8e6a41e2a46a8edf1c562548d1, type: 3}
+  itemSprite: {fileID: 21300000, guid: aa3591b36e889cf44b47ed6d00555b5c, type: 3}
   value: 100
-  statCount: 4
+  statCount: 1
   itemNameList: {fileID: 0}
-  ItemLevel: 97
+  ItemLevel: 8
+  equipped: 0

@@ -419,8 +419,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7, y: 40}
-  m_SizeDelta: {x: 773.9, y: 424.5}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_SizeDelta: {x: 772.3, y: 269}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &232496838
 MonoBehaviour:
@@ -1095,6 +1095,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: []
+  equippedHelm: {fileID: 0}
+  equippedArmor: {fileID: 0}
+  equippedRightHand: {fileID: 0}
+  equippedLeftHand: {fileID: 0}
+  equippedBelt: {fileID: 0}
+  equippedBoots: {fileID: 0}
+  equippedGloves: {fileID: 0}
+  equippedAccessory1: {fileID: 0}
+  equippedAccessory2: {fileID: 0}
+  equippedPants: {fileID: 0}
 --- !u!4 &664650227
 Transform:
   m_ObjectHideFlags: 0
@@ -3219,8 +3229,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 49.9, y: 61.3}
-  m_SizeDelta: {x: 55.65, y: 96.4}
+  m_AnchoredPosition: {x: 49.2, y: 72.6}
+  m_SizeDelta: {x: 39.57, y: 70.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1870786672
 MonoBehaviour:

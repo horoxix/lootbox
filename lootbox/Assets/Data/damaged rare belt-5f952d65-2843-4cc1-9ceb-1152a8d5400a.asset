@@ -9,15 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e3277b411e8afd40b98ccf796586626, type: 3}
-  m_Name: normal common accessory-ff4fcf35-e34d-4b3d-8992-d963c82af9f9
+  m_Name: damaged rare belt-5f952d65-2843-4cc1-9ceb-1152a8d5400a
   m_EditorClassIdentifier: 
-  rarity: 0
-  keyword: 0
-  itemType: 6
-  itemName: normal common accessory
-  itemTypeName: accessory
-  itemSprite: {fileID: 21300000, guid: fe5148939e12d1b4f8219c9a8b278594, type: 3}
+  rarity: 2
+  keyword: 1
+  itemType: 5
+  itemName: damaged rare belt
+  itemTypeName: belt
+  itemSprite: {fileID: 21300000, guid: f4f644f1673780d428583fd8fc64cd3c, type: 3}
   value: 100
-  statCount: 1
+  statCount: 3
   itemNameList: {fileID: 0}
-  ItemLevel: 6
+  ItemLevel: 36
+  equipped: 0

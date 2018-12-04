@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Stat {
     private string statName;
-    protected StatType statType;
+    public StatType statType;
     protected AffectedStat affectedStat;
     protected Rarity rarity;
     private int statValue;

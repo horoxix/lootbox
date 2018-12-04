@@ -17,6 +17,7 @@ public class Item : ScriptableObject{
     public ItemNames itemNameList;
     public int ItemLevel;
     public List<Stat> modifierList;
+    public bool equipped = false;
 
     private void OnEnable()
     {

@@ -9,15 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e3277b411e8afd40b98ccf796586626, type: 3}
-  m_Name: rusty epic helm-f867744d-0c37-4947-9913-b0d67e8e3745
+  m_Name: magic rare weapon-d55419c2-cedc-4920-8dfc-367a3376d72b
   m_EditorClassIdentifier: 
-  rarity: 3
-  keyword: 2
-  itemType: 4
-  itemName: rusty epic helm
-  itemTypeName: helm
-  itemSprite: {fileID: 21300000, guid: a834b9e1f7a25fe429f968ff7bffa5f6, type: 3}
+  rarity: 2
+  keyword: 3
+  itemType: 0
+  itemName: magic rare weapon
+  itemTypeName: weapon
+  itemSprite: {fileID: 21300000, guid: 1501f8c25309f214ba3048451439306f, type: 3}
   value: 100
-  statCount: 4
+  statCount: 3
   itemNameList: {fileID: 0}
-  ItemLevel: 78
+  ItemLevel: 49
+  equipped: 0
