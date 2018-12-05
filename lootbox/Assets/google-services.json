@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "617409639768",
+    "firebase_url": "https://lootbox-b9a5e.firebaseio.com",
+    "project_id": "lootbox-b9a5e",
+    "storage_bucket": "lootbox-b9a5e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617409639768:android:380bb49bd72c9679",
+        "android_client_info": {
+          "package_name": "com.j2games.lootbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617409639768-l0p5dp6tj1hpqb7qc68avkja6cn2f46f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoKmAHQPn_DrzTp_M9pYOad3_-i07ffDQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

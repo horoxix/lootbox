@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3277b411e8afd40b98ccf796586626, type: 3}
+  m_Name: magic uncommon gloves-fdf60177-ae9d-4a18-b78b-d6a08c82325f
+  m_EditorClassIdentifier: 
+  rarity: 1
+  keyword: 3
+  itemType: 7
+  itemName: magic uncommon gloves
+  itemTypeName: gloves
+  itemSprite: {fileID: 21300000, guid: c48f18be6a0c04942af2b870f20a205e, type: 3}
+  value: 100
+  statCount: 2
+  itemNameList: {fileID: 0}
+  ItemLevel: 18
+  equipped: 0
