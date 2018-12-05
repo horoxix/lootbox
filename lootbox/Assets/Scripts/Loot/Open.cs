@@ -9,6 +9,8 @@ public class Open : MonoBehaviour {
     GameObject Loot;
     [SerializeField]
     LootManager lootManager;
+    [SerializeField]
+    Text playerLevelText;
     private ItemFactory itemFactory;
     private WeaponFactory weaponFactory;
 
@@ -28,6 +30,12 @@ public class Open : MonoBehaviour {
             Image uiSprite = thisObject.GetComponent<Image>();
             ClearItemSprites(thisObject);
             StartCoroutine(CreateLoot(thisObject, uiSprite));
+        }
+        User.user.Experience += lootBox.Experience;
+        if(User.user.Experience >= User.user.ExperienceToNext)
+        {
+            LevelUp levelUp = new LevelUp();
+            levelUp.levelUp(playerLevelText);
         }
         StartCoroutine(DisplayNames());
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class User : MonoBehaviour {
     private string playerName;
     private float experience;
+    private float experienceToNext;
     private int level;
     private int inventorySlots;
     private int equipmentSlots;
@@ -40,16 +41,18 @@ public class User : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
         luck = new Luck("Luck", Stat.StatType.LUCK, Stat.Rarity.RARE, Stat.AffectedStat.RARITY, 0);
         dexterity = new Dexterity("Dexterity", Stat.StatType.DEXTERITY, Stat.Rarity.UNCOMMON, Stat.AffectedStat.ACCUMULATION, 0);
         intelligence = new Intelligence("Intelligence", Stat.StatType.INTELLIGENCE, Stat.Rarity.COMMON, Stat.AffectedStat.THEME, 0);
         strength = new Strength("Strength", Stat.StatType.STRENGTH, Stat.Rarity.COMMON, Stat.AffectedStat.LOOT_AMOUNT, 0);
         playerName = "Holden";
         level = 1;
+        experienceToNext = 100;
+    }
+
+    void Start()
+    {
+
     }
 
     public float Experience
@@ -154,6 +157,19 @@ public class User : MonoBehaviour {
         set
         {
             playerName = value;
+        }
+    }
+
+    public float ExperienceToNext
+    {
+        get
+        {
+            return experienceToNext;
+        }
+
+        set
+        {
+            experienceToNext = value;
         }
     }
 }

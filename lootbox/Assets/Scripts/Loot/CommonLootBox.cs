@@ -10,5 +10,6 @@ public class CommonLootBox : LootBox {
         itemCount = 4;
         cost = 100;
         dropRate = 1;
+        Experience = Random.Range(5, 10);
 	}
 }
