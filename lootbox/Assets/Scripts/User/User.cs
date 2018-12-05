@@ -47,6 +47,7 @@ public class User : MonoBehaviour {
         strength = new Strength("Strength", Stat.StatType.STRENGTH, Stat.Rarity.COMMON, Stat.AffectedStat.LOOT_AMOUNT, 0);
         playerName = "Holden";
         level = 1;
+        lootBoxes = 1;
         experienceToNext = 100;
     }
 

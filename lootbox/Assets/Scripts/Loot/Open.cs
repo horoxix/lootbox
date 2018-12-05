@@ -11,6 +11,11 @@ public class Open : MonoBehaviour {
     LootManager lootManager;
     [SerializeField]
     Text playerLevelText;
+    [SerializeField]
+    Text errorText;
+    [SerializeField]
+    Text lootBoxesText;
+    FirebaseManager firebaseManager;
     private ItemFactory itemFactory;
     private WeaponFactory weaponFactory;
 
@@ -18,26 +23,44 @@ public class Open : MonoBehaviour {
     {
         itemFactory = new ConcreteItemFactory();
         weaponFactory = new ConcreteWeaponFactory();
+        firebaseManager = FindObjectOfType<FirebaseManager>();
+        if (!firebaseManager)
+        {
+            Debug.LogError(gameObject + " couldn't find FirebaseManager");
+        }
     }
 
     // On click to OpenBox, looks at how many items are in the box and adds an Item.
     // TODO : In UI, add item to specific gameObjects.
     public void OpenBox(LootBox lootBox)
     {
-        for(int i=0; i < lootBox.ItemCount; i++)
+        if(User.user.LootBoxes > 0)
         {
-            GameObject thisObject = lootManager.lootSlots[i].gameObject;
-            Image uiSprite = thisObject.GetComponent<Image>();
-            ClearItemSprites(thisObject);
-            StartCoroutine(CreateLoot(thisObject, uiSprite));
+            for (int i = 0; i < lootBox.ItemCount; i++)
+            {
+                GameObject thisObject = lootManager.lootSlots[i].gameObject;
+                Image uiSprite = thisObject.GetComponent<Image>();
+                ClearItemSprites(thisObject);
+                StartCoroutine(CreateLoot(thisObject, uiSprite));
+            }
+            User.user.Experience += lootBox.Experience;
+            if (User.user.Experience >= User.user.ExperienceToNext)
+            {
+                LevelUp levelUp = new LevelUp();
+                levelUp.levelUp(playerLevelText);
+            }
+            User.user.LootBoxes -= 1;
+            UpdateLootBoxesText();
+            firebaseManager.LootBoxes = User.user.LootBoxes;
+            firebaseManager.UpdateLootBoxes();
+            StartCoroutine(DisplayNames());
         }
-        User.user.Experience += lootBox.Experience;
-        if(User.user.Experience >= User.user.ExperienceToNext)
+        else
         {
-            LevelUp levelUp = new LevelUp();
-            levelUp.levelUp(playerLevelText);
+            errorText.enabled = true;
+            errorText.text = "You do not have any loot boxes!";
+            StartCoroutine(DisableErrorText());
         }
-        StartCoroutine(DisplayNames());
     }
 
     private void AddItemToInventory(GameObject thisObject, Item item, Image uiSprite)
@@ -61,6 +84,7 @@ public class Open : MonoBehaviour {
         Item item = CreateItem.Create();
         yield return new WaitForSeconds(0.5f);
         thisObject.GetComponent<Loot>().attachedItem = item;
+        thisObject.GetComponent<Loot>().itemAttached = true;
         AddItemToInventory(thisObject, item, uiSprite);
         yield return new WaitForSeconds(0.5f);
     }
@@ -103,5 +127,24 @@ public class Open : MonoBehaviour {
                 return dict["Legendary"];
         }
         throw new NotImplementedException();
+    }
+    
+    IEnumerator DisableErrorText()
+    {
+        yield return new WaitForSeconds(2.0f);
+        errorText.enabled = false;
+    }
+
+    public void DebugAddLootBox()
+    {
+        User.user.LootBoxes += 1;
+        firebaseManager.LootBoxes = User.user.LootBoxes;
+        firebaseManager.UpdateLootBoxes();
+        UpdateLootBoxesText();
+    }
+
+    private void UpdateLootBoxesText()
+    {
+        lootBoxesText.text = User.user.LootBoxes.ToString();
     }
 }

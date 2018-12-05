@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Loot : MonoBehaviour {
     private Text currencyText;
     public Item attachedItem;
+    public bool itemAttached;
     private void Start()
     {
         currencyText = FindObjectOfType<Currency>().GetComponent<Text>();
@@ -28,6 +29,7 @@ public class Loot : MonoBehaviour {
     public void RemoveAttachedItem()
     {
         attachedItem = null;
+        itemAttached = false;
     }
 
     // Hides disenchant and send to inventory buttons
@@ -58,30 +60,33 @@ public class Loot : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        Image image = gameObject.GetComponent<Image>();
-        Transform itemSprite = gameObject.transform.GetChild(0);
-        Transform buttons = gameObject.transform.GetChild(1);
-        Image childImage = itemSprite.GetComponent<Image>();
-        childImage.sprite = attachedItem.itemSprite;
-        childImage.enabled = true;
-        buttons.gameObject.SetActive(true);
-        switch (attachedItem.rarity)
+        if (itemAttached)
         {
-            case Item.Rarity.COMMON:
-                image.sprite = Resources.Load<Sprite>("rarityBackground/common");
-                break;
-            case Item.Rarity.UNCOMMON:
-                image.sprite = Resources.Load<Sprite>("rarityBackground/uncommon");
-                break;
-            case Item.Rarity.RARE:
-                image.sprite = Resources.Load<Sprite>("rarityBackground/rare");
-                break;
-            case Item.Rarity.EPIC:
-                image.sprite = Resources.Load<Sprite>("rarityBackground/epic");
-                break;
-            case Item.Rarity.LEGENDARY:
-                image.sprite = Resources.Load<Sprite>("rarityBackground/legendary");
-                break;
+            Image image = gameObject.GetComponent<Image>();
+            Transform itemSprite = gameObject.transform.GetChild(0);
+            Transform buttons = gameObject.transform.GetChild(1);
+            Image childImage = itemSprite.GetComponent<Image>();
+            childImage.sprite = attachedItem.itemSprite;
+            childImage.enabled = true;
+            buttons.gameObject.SetActive(true);
+            switch (attachedItem.rarity)
+            {
+                case Item.Rarity.COMMON:
+                    image.sprite = Resources.Load<Sprite>("rarityBackground/common");
+                    break;
+                case Item.Rarity.UNCOMMON:
+                    image.sprite = Resources.Load<Sprite>("rarityBackground/uncommon");
+                    break;
+                case Item.Rarity.RARE:
+                    image.sprite = Resources.Load<Sprite>("rarityBackground/rare");
+                    break;
+                case Item.Rarity.EPIC:
+                    image.sprite = Resources.Load<Sprite>("rarityBackground/epic");
+                    break;
+                case Item.Rarity.LEGENDARY:
+                    image.sprite = Resources.Load<Sprite>("rarityBackground/legendary");
+                    break;
+            }
         }
     }
 

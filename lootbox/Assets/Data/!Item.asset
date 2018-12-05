@@ -9,16 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e3277b411e8afd40b98ccf796586626, type: 3}
-  m_Name: normal common pants-1832e00a-d153-45b9-a45c-879b438c1173
+  m_Name: '!Item'
   m_EditorClassIdentifier: 
   rarity: 0
   keyword: 0
-  itemType: 2
-  itemName: normal common pants
-  itemTypeName: pants
-  itemSprite: {fileID: 21300000, guid: 694692cd06d6efa489b40847c9ddee8e, type: 3}
+  itemType: 0
+  itemName: Name
+  itemTypeName: itemTypeName
+  itemSprite: {fileID: 0}
   value: 100
-  statCount: 1
+  statCount: 0
   itemNameList: {fileID: 0}
-  ItemLevel: 2
+  ItemLevel: 0
   equipped: 0

@@ -7,6 +7,7 @@ using Firebase.Unity.Editor;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class FirebaseManager : MonoBehaviour
 {
@@ -19,8 +20,14 @@ public class FirebaseManager : MonoBehaviour
     private DatabaseReference databaseReference;
     private int lootBoxes;
     private int level;
-    private int experience;
+    private float experience;
     private string userId;
+    private string username;
+    private string password;
+    [SerializeField]
+    private InputField usernameField;
+    [SerializeField]
+    private InputField passwordField;
 
     private void Awake()
     {
@@ -32,13 +39,7 @@ public class FirebaseManager : MonoBehaviour
                 dependencyStatus = task.Result;
                 if (dependencyStatus == DependencyStatus.Available)
                 {
-                    app = FirebaseApp.DefaultInstance;
-                    app.SetEditorDatabaseUrl("https://lootbox-b9a5e.firebaseio.com/");
-                    if (app.Options.DatabaseUrl != null) app.SetEditorDatabaseUrl(app.Options.DatabaseUrl);
-                    isInitialized = true;
-                    databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
-                    auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-                    Debug.Log("SUCCESS");
+                    InitializeFirebase();
                 }
                 else
                 {
@@ -54,6 +55,20 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
+    private void InitializeFirebase()
+    {
+        app = FirebaseApp.DefaultInstance;
+        app.SetEditorDatabaseUrl("https://lootbox-b9a5e.firebaseio.com/");
+        if (app.Options.DatabaseUrl != null) app.SetEditorDatabaseUrl(app.Options.DatabaseUrl);
+        isInitialized = true;
+        databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
+        auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
+        Debug.Log(auth.CurrentUser);
+        Debug.Log("SUCCESS");
+        auth.StateChanged += AuthStateChanged;
+        AuthStateChanged(this, null);
+    }
+
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(1.0f);
@@ -62,17 +77,54 @@ public class FirebaseManager : MonoBehaviour
         app.SetEditorP12FileName("lootbox-b9a5e-2ebbd35405ef.p12");
         app.SetEditorServiceAccountEmail("horoxix@lootbox-b9a5e.iam.gserviceaccount.com");
         app.SetEditorP12Password("notasecret");
+        Debug.Log(userId);
     }
 
-    //Initializes Firebase and checks version for update.
-    void InitializeFirebase()
+    // Track state changes of the auth object.
+    void AuthStateChanged(object sender, System.EventArgs eventArgs)
     {
-        
+        Debug.Log(auth.CurrentUser);
+        if (auth.CurrentUser != user)
+        {
+            bool signedIn = user != auth.CurrentUser && auth.CurrentUser != null;
+            if (!signedIn && user != null)
+            {
+                Debug.Log("Signed out " + user.UserId);
+            }
+            user = auth.CurrentUser;
+            if (signedIn)
+            {
+                userId = user.UserId;
+                Debug.Log("Signed in " + user.UserId);
+            }
+        }
     }
 
-    void CreateNewAccount(string email, string password)
+    void OnDestroy()
     {
-        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
+        auth.StateChanged -= AuthStateChanged;
+        auth = null;
+    }
+
+    public void SetUsername(string username)
+    {
+        this.username = username;
+    }
+
+    public void SetPassword(string password)
+    {
+        this.password = PasswordEncrypt.Encrypt(password, "password");
+    }
+
+    public string GetPassword(string password)
+    {
+        return PasswordEncrypt.Decrypt(this.password);
+    }
+
+
+    public void CreateNewAccount()
+    {
+        auth.CreateUserWithEmailAndPasswordAsync(usernameField.text, passwordField.text).ContinueWith(task => {
             if (task.IsCanceled)
             {
                 Debug.LogError("CreateUserWithEmailAndPasswordAsync was canceled.");
@@ -90,9 +142,9 @@ public class FirebaseManager : MonoBehaviour
         });
     }
 
-    void SignInWithExisting(string email, string password)
+    public void SignInWithExisting()
     {
-        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
+        auth.SignInWithEmailAndPasswordAsync(usernameField.text, passwordField.text).ContinueWith(task => {
             if (task.IsCanceled)
             {
                 Debug.LogError("SignInWithEmailAndPasswordAsync was canceled.");
@@ -130,28 +182,82 @@ public class FirebaseManager : MonoBehaviour
                 if(task.Result == null || task.Result.Value == null)
                 {
                     Debug.Log("New User");
-                    level = 1;
-                    experience = 0;
-                    lootBoxes = 1;
+                    Level = 1;
+                    Experience = 0;
+                    LootBoxes = 1;
                     UpdateDatabaseValues();
                 }
                 else
                 {
                     Debug.Log("Existing User");
                     var results = (IDictionary<string, object>)task.Result.Value;
-                    level = Convert.ToInt32(results["level"]);
-                    experience = Convert.ToInt32(results["experience"]);
-                    lootBoxes = Convert.ToInt32(results["lootBoxes"]);
+                    Level = Convert.ToInt32(results["level"]);
+                    Experience = Convert.ToInt32(results["experience"]);
+                    LootBoxes = Convert.ToInt32(results["lootBoxes"]);
                 }
             }
         });
     }
 
-    private void UpdateDatabaseValues()
+    public void UpdateDatabaseValues()
     {
-        databaseReference.Child("users").Child(userId).Child("level").SetValueAsync(level);
-        databaseReference.Child("users").Child(userId).Child("lootBoxes").SetValueAsync(lootBoxes);
-        databaseReference.Child("users").Child(userId).Child("experience").SetValueAsync(experience);
+        databaseReference.Child("users").Child(userId).Child("level").SetValueAsync(Level);
+        databaseReference.Child("users").Child(userId).Child("lootBoxes").SetValueAsync(LootBoxes);
+        databaseReference.Child("users").Child(userId).Child("experience").SetValueAsync(Experience);
+    }
+
+    public void UpdateLevel()
+    {
+        databaseReference.Child("users").Child(userId).Child("level").SetValueAsync(Level);
+    }
+
+    public void UpdateLootBoxes()
+    {
+        databaseReference.Child("users").Child(userId).Child("lootBoxes").SetValueAsync(LootBoxes);
+    }
+
+    public void UpdateExperience()
+    {
+        databaseReference.Child("users").Child(userId).Child("experience").SetValueAsync(Experience);
+    }
+
+    public int LootBoxes
+    {
+        get
+        {
+            return lootBoxes;
+        }
+
+        set
+        {
+            lootBoxes = value;
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            level = value;
+        }
+    }
+
+    public float Experience
+    {
+        get
+        {
+            return experience;
+        }
+
+        set
+        {
+            experience = value;
+        }
     }
 
 }
