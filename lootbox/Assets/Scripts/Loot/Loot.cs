@@ -44,7 +44,7 @@ public class Loot : MonoBehaviour {
         Item item = attachedItem;
         RemoveImage();
         HideButtons();
-        AssetDatabase.DeleteAsset("Assets/Data/" + attachedItem.name.ToString() + ".asset");
+        //AssetDatabase.DeleteAsset("Assets/Data/" + attachedItem.name.ToString() + ".asset");
         RemoveAttachedItem();
         RemoveItem(item);
         User.user.Currency += item.value;

@@ -63,7 +63,6 @@ public class FirebaseManager : MonoBehaviour
         isInitialized = true;
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
         auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-        Debug.Log(auth.CurrentUser);
         Debug.Log("SUCCESS");
         auth.StateChanged += AuthStateChanged;
         AuthStateChanged(this, null);
@@ -77,7 +76,6 @@ public class FirebaseManager : MonoBehaviour
         app.SetEditorP12FileName("lootbox-b9a5e-2ebbd35405ef.p12");
         app.SetEditorServiceAccountEmail("horoxix@lootbox-b9a5e.iam.gserviceaccount.com");
         app.SetEditorP12Password("notasecret");
-        Debug.Log(userId);
     }
 
     // Track state changes of the auth object.
@@ -140,6 +138,7 @@ public class FirebaseManager : MonoBehaviour
                 user.DisplayName, user.UserId);
             userId = user.UserId;
         });
+        GetDataFromDatabase();
     }
 
     public void SignInWithExisting()
@@ -160,6 +159,7 @@ public class FirebaseManager : MonoBehaviour
                 user.DisplayName, user.UserId);
             userId = user.UserId;
         });
+        GetDataFromDatabase();
     }
 
     void SignOut()

@@ -6,7 +6,7 @@ using System;
 
 public class CreateItem
 {
-    [MenuItem("Assets/Create/Item")]
+    //[MenuItem("Assets/Create/Item")]
     public static Item Create()
     {
         GenerateSprite generateSprite = new GenerateSprite();
@@ -29,8 +29,8 @@ public class CreateItem
         asset.itemSpriteList = generateSprite.GenerateSpriteList(asset.itemType);
         asset.itemSprite = GenerateSpriteType(asset.itemSpriteList, asset.rarity);
         asset.ItemLevel = GenerateItemLevel(asset.rarity);
-        AssetDatabase.CreateAsset(asset, "Assets/Data/" + asset.itemName + "-" + Guid.NewGuid() + ".asset");
-        AssetDatabase.SaveAssets();
+        //AssetDatabase.CreateAsset(asset, "Assets/Data/" + asset.itemName + "-" + Guid.NewGuid() + ".asset");
+        //AssetDatabase.SaveAssets();
         return asset;
     }
 
