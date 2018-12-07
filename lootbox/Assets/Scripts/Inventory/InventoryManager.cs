@@ -24,6 +24,8 @@ public class InventoryManager : MonoBehaviour {
     public Text modifier4Text;
     [SerializeField]
     public Image itemSprite;
+    [SerializeField]
+    public Image itemBackground;
 
     // Use this for initialization
     void Start () {
@@ -31,7 +33,8 @@ public class InventoryManager : MonoBehaviour {
         SetModifierSlots();
         SetSprites();
         SetBackground();
-	}
+        SelectItem(inventorySlots[0].GetComponent<InventorySlot>().attachedItem);
+    }
 	
     void SetSprites()
     {
@@ -105,4 +108,30 @@ public class InventoryManager : MonoBehaviour {
             }
         }
     }
+
+    public void SelectItem(Item attachedItem)
+    {
+        DisableModifierText();
+        itemNameText.text = "Name: " + attachedItem.itemName.ToString();
+        itemRarityText.text = "Rarity: " + attachedItem.rarity.ToString();
+        itemKeywordText.text = "Keyword: " + attachedItem.keyword.ToString();
+        itemLevelText.text = "iLevel: " + attachedItem.ItemLevel.ToString();
+        itemSprite.sprite = attachedItem.itemSprite;
+        itemBackground.sprite = attachedItem.itemBackground;
+        for (int i = 0; i < attachedItem.statCount; i++)
+        {
+            Text text = modifierSlots[i].GetComponent<Text>();
+            text.enabled = true;
+            text.text = attachedItem.modifierList[i].StatName + " : " + attachedItem.modifierList[i].StatValue;
+        }
+  }
+    
+
+    private void DisableModifierText()
+{
+    for (int i = 0; i < modifierSlots.Count; i++)
+    {
+        modifierSlots[i].GetComponent<Text>().enabled = false;
+    }
+}
 }

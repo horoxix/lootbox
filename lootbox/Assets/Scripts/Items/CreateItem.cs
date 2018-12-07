@@ -29,6 +29,7 @@ public class CreateItem
         asset.itemSpriteList = generateSprite.GenerateSpriteList(asset.itemType);
         asset.itemSprite = GenerateSpriteType(asset.itemSpriteList, asset.rarity);
         asset.ItemLevel = GenerateItemLevel(asset.rarity);
+        asset.itemBackground = GenerateSpriteType(BackgroundSprites.backgroundSprites, asset.rarity);
         //AssetDatabase.CreateAsset(asset, "Assets/Data/" + asset.itemName + "-" + Guid.NewGuid() + ".asset");
         //AssetDatabase.SaveAssets();
         return asset;

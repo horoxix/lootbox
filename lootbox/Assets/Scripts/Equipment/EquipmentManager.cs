@@ -6,6 +6,27 @@ using UnityEngine.UI;
 public class EquipmentManager : MonoBehaviour {
 
     public List<GameObject> equipmentSlots;
+    public List<Text> modifierSlots;
+    [SerializeField]
+    public Text itemNameText;
+    [SerializeField]
+    public Text itemLevelText;
+    [SerializeField]
+    public Text itemRarityText;
+    [SerializeField]
+    public Text itemKeywordText;
+    [SerializeField]
+    public Text modifier1Text;
+    [SerializeField]
+    public Text modifier2Text;
+    [SerializeField]
+    public Text modifier3Text;
+    [SerializeField]
+    public Text modifier4Text;
+    [SerializeField]
+    public Image itemSprite;
+    [SerializeField]
+    public Image itemBackground;
 
     [SerializeField]
     public Text playerNameText;
@@ -38,16 +59,28 @@ public class EquipmentManager : MonoBehaviour {
     public EquipmentSlot GlovesSlot;
     [SerializeField]
     public EquipmentSlot PantsSlot;
+
     [SerializeField]
+    public CanvasGroup canvasGroup;
 
     // Use this for initialization
     void Start()
     {
         SetEquipmentSlots();
         SetPlayerDataText();
+        SetModifierSlots();
         AttachItems();
         SetSprites();
         SetBackground();
+    }
+
+
+    void SetModifierSlots()
+    {
+        modifierSlots.Add(modifier1Text);
+        modifierSlots.Add(modifier2Text);
+        modifierSlots.Add(modifier3Text);
+        modifierSlots.Add(modifier4Text);
     }
 
     public Item CheckForExists(Item userItem)
@@ -114,31 +147,10 @@ public class EquipmentManager : MonoBehaviour {
         {
             Image image = child.GetComponent<Image>();
             Item attachedItem = child.GetComponent<EquipmentSlot>().attachedItem;
-            if (attachedItem != null)
+            if(attachedItem != null)
             {
                 image.enabled = true;
-                switch (attachedItem.rarity)
-                {
-                    case Item.Rarity.COMMON:
-                        image.sprite = Resources.Load<Sprite>("rarityBackground/common");
-                        break;
-                    case Item.Rarity.UNCOMMON:
-                        image.sprite = Resources.Load<Sprite>("rarityBackground/uncommon");
-                        break;
-                    case Item.Rarity.RARE:
-                        image.sprite = Resources.Load<Sprite>("rarityBackground/rare");
-                        break;
-                    case Item.Rarity.EPIC:
-                        image.sprite = Resources.Load<Sprite>("rarityBackground/epic");
-                        break;
-                    case Item.Rarity.LEGENDARY:
-                        image.sprite = Resources.Load<Sprite>("rarityBackground/legendary");
-                        break;
-                }
-            }
-            else
-            {
-                image.sprite = Resources.Load<Sprite>("background/basic");
+                image.sprite = attachedItem.itemBackground;
             }
         }
     }
@@ -162,6 +174,49 @@ public class EquipmentManager : MonoBehaviour {
                 User.user.inventory.Remove(itemToRemove);
                 return;
             }
+        }
+    }
+
+    // Fades alpha in or out for an image.
+    public IEnumerator FadeTo(float aValue, float aTime)
+    {
+        float alpha = canvasGroup.alpha;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            canvasGroup.alpha = Mathf.Lerp(alpha, aValue, t);
+            yield return null;
+        }
+    }
+
+    public void ToggleCanvas(int value)
+    {
+        StartCoroutine(FadeTo(value, 1));
+        canvasGroup.interactable = !canvasGroup.interactable;
+        canvasGroup.blocksRaycasts = !canvasGroup.blocksRaycasts;
+    }
+
+    public void SelectItem(Item attachedItem)
+    {
+        DisableModifierText();
+        itemNameText.text = "Name: " + attachedItem.itemName.ToString();
+        itemRarityText.text = "Rarity: " + attachedItem.rarity.ToString();
+        itemKeywordText.text = "Keyword: " + attachedItem.keyword.ToString();
+        itemLevelText.text = "iLevel: " + attachedItem.ItemLevel.ToString();
+        itemSprite.sprite = attachedItem.itemSprite;
+        itemBackground.sprite = attachedItem.itemBackground;
+        for (int i = 0; i < attachedItem.statCount; i++)
+        {
+            Text text = modifierSlots[i].GetComponent<Text>();
+            text.enabled = true;
+            text.text = attachedItem.modifierList[i].StatName + " : " + attachedItem.modifierList[i].StatValue;
+        }
+    }
+
+    private void DisableModifierText()
+    {
+        for (int i = 0; i < modifierSlots.Count; i++)
+        {
+            modifierSlots[i].GetComponent<Text>().enabled = false;
         }
     }
 }

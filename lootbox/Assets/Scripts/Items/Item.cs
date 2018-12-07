@@ -11,6 +11,7 @@ public class Item : ScriptableObject{
     public string itemTypeName = "itemTypeName";
     [SerializeField]
     public Sprite itemSprite = null;
+    public Sprite itemBackground = null;
     public Dictionary<string, Sprite> itemSpriteList;
     public int value = 100;
     public int statCount;
