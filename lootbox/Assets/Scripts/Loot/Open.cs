@@ -15,6 +15,8 @@ public class Open : MonoBehaviour {
     Text errorText;
     [SerializeField]
     Text lootBoxesText;
+    [SerializeField]
+    Text ExperienceText;
     FirebaseManager firebaseManager;
     private ItemFactory itemFactory;
     private WeaponFactory weaponFactory;
@@ -47,12 +49,11 @@ public class Open : MonoBehaviour {
             if (User.user.Experience >= User.user.ExperienceToNext)
             {
                 LevelUp levelUp = new LevelUp();
-                levelUp.levelUp(playerLevelText);
+                levelUp.IncreaseLevel(playerLevelText, firebaseManager);
             }
             User.user.LootBoxes -= 1;
-            UpdateLootBoxesText();
-            firebaseManager.LootBoxes = User.user.LootBoxes;
-            firebaseManager.UpdateLootBoxes();
+            User.user.Experience += lootBox.Experience;
+            firebaseManager.UpdateDatabaseValues();
             StartCoroutine(DisplayNames());
         }
         else
@@ -138,13 +139,6 @@ public class Open : MonoBehaviour {
     public void DebugAddLootBox()
     {
         User.user.LootBoxes += 1;
-        firebaseManager.LootBoxes = User.user.LootBoxes;
         firebaseManager.UpdateLootBoxes();
-        UpdateLootBoxesText();
-    }
-
-    private void UpdateLootBoxesText()
-    {
-        lootBoxesText.text = User.user.LootBoxes.ToString();
     }
 }

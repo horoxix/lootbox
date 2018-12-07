@@ -18,9 +18,6 @@ public class FirebaseManager : MonoBehaviour
     private Firebase.Auth.FirebaseUser user;
     private DependencyStatus dependencyStatus;
     private DatabaseReference databaseReference;
-    private int lootBoxes;
-    private int level;
-    private float experience;
     private string userId;
     private string username;
     private string password;
@@ -28,6 +25,10 @@ public class FirebaseManager : MonoBehaviour
     private InputField usernameField;
     [SerializeField]
     private InputField passwordField;
+    [SerializeField]
+    private LootManager lootManager;
+    [SerializeField]
+    private LevelManager levelManager;
 
     private void Awake()
     {
@@ -158,6 +159,7 @@ public class FirebaseManager : MonoBehaviour
             Debug.LogFormat("User signed in successfully: {0} ({1})",
                 user.DisplayName, user.UserId);
             userId = user.UserId;
+            Debug.Log(userId);
         });
         GetDataFromDatabase();
     }
@@ -175,89 +177,51 @@ public class FirebaseManager : MonoBehaviour
         {
             if (task.IsFaulted)
             {
-                Debug.Log("Faulted");
+                Debug.Log("Faulted" + task.Exception);
             }
             else if (task.IsCompleted)
             {
                 if(task.Result == null || task.Result.Value == null)
                 {
                     Debug.Log("New User");
-                    Level = 1;
-                    Experience = 0;
-                    LootBoxes = 1;
+                    User.user.Level = 1;
+                    User.user.Experience = 0;
+                    User.user.LootBoxes = 3;
                     UpdateDatabaseValues();
                 }
                 else
                 {
                     Debug.Log("Existing User");
                     var results = (IDictionary<string, object>)task.Result.Value;
-                    Level = Convert.ToInt32(results["level"]);
-                    Experience = Convert.ToInt32(results["experience"]);
-                    LootBoxes = Convert.ToInt32(results["lootBoxes"]);
+                    User.user.Level = Convert.ToInt32(results["level"]);
+                    User.user.Experience = Convert.ToInt32(results["experience"]);
+                    User.user.LootBoxes = Convert.ToInt32(results["lootBoxes"]);
                 }
             }
         });
+        
     }
 
     public void UpdateDatabaseValues()
     {
-        databaseReference.Child("users").Child(userId).Child("level").SetValueAsync(Level);
-        databaseReference.Child("users").Child(userId).Child("lootBoxes").SetValueAsync(LootBoxes);
-        databaseReference.Child("users").Child(userId).Child("experience").SetValueAsync(Experience);
+        databaseReference.Child("users").Child(userId).Child("level").SetValueAsync(User.user.Level);
+        databaseReference.Child("users").Child(userId).Child("lootBoxes").SetValueAsync(User.user.LootBoxes);
+        databaseReference.Child("users").Child(userId).Child("experience").SetValueAsync(User.user.Experience);
     }
 
     public void UpdateLevel()
     {
-        databaseReference.Child("users").Child(userId).Child("level").SetValueAsync(Level);
+        databaseReference.Child("users").Child(userId).Child("level").SetValueAsync(User.user.Level);
     }
 
     public void UpdateLootBoxes()
     {
-        databaseReference.Child("users").Child(userId).Child("lootBoxes").SetValueAsync(LootBoxes);
+        databaseReference.Child("users").Child(userId).Child("lootBoxes").SetValueAsync(User.user.LootBoxes);
     }
 
     public void UpdateExperience()
     {
-        databaseReference.Child("users").Child(userId).Child("experience").SetValueAsync(Experience);
-    }
-
-    public int LootBoxes
-    {
-        get
-        {
-            return lootBoxes;
-        }
-
-        set
-        {
-            lootBoxes = value;
-        }
-    }
-
-    public int Level
-    {
-        get
-        {
-            return level;
-        }
-
-        set
-        {
-            level = value;
-        }
-    }
-
-    public float Experience
-    {
-        get
-        {
-            return experience;
-        }
-
-        set
-        {
-            experience = value;
-        }
+        databaseReference.Child("users").Child(userId).Child("experience").SetValueAsync(User.user.Experience);
     }
 
 }
