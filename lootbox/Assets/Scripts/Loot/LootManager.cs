@@ -11,6 +11,8 @@ public class LootManager : MonoBehaviour {
     Text ExperienceText;
     [SerializeField]
     Text lootBoxesText;
+    [SerializeField]
+    Text userNameText;
 
     // Use this for initialization
     void Start () {
@@ -18,12 +20,13 @@ public class LootManager : MonoBehaviour {
         {
             lootSlots.Add(child.gameObject);
         }
-	}
+    }
 
     private void Update()
     {
         playerLevelText.text = User.user.Level.ToString();
-        lootBoxesText.text = User.user.LootBoxes.ToString();
+        //lootBoxesText.text = User.user.LootBoxes.ToString();
         ExperienceText.text = User.user.Experience.ToString();
+        userNameText.text = User.user.PlayerName.ToString();
     }
 }

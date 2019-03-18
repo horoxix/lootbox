@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,14 +18,19 @@ public class Open : MonoBehaviour {
     Text lootBoxesText;
     [SerializeField]
     Text ExperienceText;
+    [SerializeField]
+    ItemObjectDatabase itemObjectDatabase;
     FirebaseManager firebaseManager;
-    private ItemFactory itemFactory;
-    private WeaponFactory weaponFactory;
+    [SerializeField]
+    Sprite HeavySprite;
+    [SerializeField]
+    Sprite MediumSprite;
+    [SerializeField]
+    Sprite LightSprite;
 
+    // Initializes everything needed for the script.
     private void Start()
     {
-        itemFactory = new ConcreteItemFactory();
-        weaponFactory = new ConcreteWeaponFactory();
         firebaseManager = FindObjectOfType<FirebaseManager>();
         if (!firebaseManager)
         {
@@ -33,17 +39,23 @@ public class Open : MonoBehaviour {
     }
 
     // On click to OpenBox, looks at how many items are in the box and adds an Item.
-    // TODO : In UI, add item to specific gameObjects.
-    public void OpenBox(LootBox lootBox)
+    public void OpenBox()
     {
-        if(User.user.LootBoxes > 0)
+        if (User.user.LootBoxes > 0)
         {
+            LootBox lootBox = GenerateLootBox();
+            if (User.user.inventory.Count + lootBox.ItemCount > User.user.InventorySlots)
+            {
+                errorText.enabled = true;
+                errorText.text = "Your inventory is too full!";
+                StartCoroutine(DisableErrorText());
+                return;
+            }
             for (int i = 0; i < lootBox.ItemCount; i++)
             {
                 GameObject thisObject = lootManager.lootSlots[i].gameObject;
-                Image uiSprite = thisObject.GetComponent<Image>();
                 ClearItemSprites(thisObject);
-                StartCoroutine(CreateLoot(thisObject, uiSprite));
+                CreateLoot(thisObject, thisObject.GetComponent<Image>());
             }
             User.user.Experience += lootBox.Experience;
             if (User.user.Experience >= User.user.ExperienceToNext)
@@ -51,45 +63,50 @@ public class Open : MonoBehaviour {
                 LevelUp levelUp = new LevelUp();
                 levelUp.IncreaseLevel(playerLevelText, firebaseManager);
             }
+            if(User.user.LootBoxes == User.user.MaxLootBoxes)
+            {
+                firebaseManager.UpdateLastTimeOpenedLootBox();
+            }
             User.user.LootBoxes -= 1;
             User.user.Experience += lootBox.Experience;
             firebaseManager.UpdateDatabaseValues();
-            StartCoroutine(DisplayNames());
         }
         else
         {
             errorText.enabled = true;
-            errorText.text = "You do not have any loot boxes!";
+            errorText.text = "You do not have any more loot boxes!";
             StartCoroutine(DisableErrorText());
         }
+        //DataManager.dataManager.Save();
     }
 
-    private void AddItemToInventory(GameObject thisObject, Item item, Image uiSprite)
+    // Adds an item to the User's inventory.
+    private void AddItemToInventory(ItemObject item, Image uiSprite)
     {
-        User.user.inventory.Add(item);
-        uiSprite.sprite = GenerateRaritySprite(RaritySprites.raritySprites, item.rarity);
+        if(item.itemType == ItemObject.ItemType.WEAPON)
+        {
+            User.user.weapons.Add(item);
+        }
+        else
+        {
+            User.user.inventory.Add(item);
+        }
+        uiSprite.sprite = GenerateOrbRaritySprite(RaritySprites.raritySprites, item.rarity);
         uiSprite.enabled = true;
     }
 
-    public IEnumerator DisplayNames()
+    public void CreateLoot(GameObject lootSlotObject, Image uiSprite)
     {
-        yield return new WaitForSeconds(1.0f);
-        for (int j = 0; j < User.user.inventory.Count; j++)
-        {
-            Debug.Log(User.user.inventory[j].itemName);
-        }
+        Loot loot = lootSlotObject.GetComponent<Loot>();
+        loot.attachedItem = CreateItemObject.GenerateItemObject(
+            CreateItemObject.Generate(
+                itemObjectDatabase.ItemList[RandomManager.random.Next(
+                    itemObjectDatabase.ItemList.Count)]));
+        loot.itemAttached = true;
+        AddItemToInventory(loot.attachedItem, uiSprite);
     }
 
-    public IEnumerator CreateLoot(GameObject thisObject, Image uiSprite)
-    {
-        Item item = CreateItem.Create();
-        yield return new WaitForSeconds(0.5f);
-        thisObject.GetComponent<Loot>().attachedItem = item;
-        thisObject.GetComponent<Loot>().itemAttached = true;
-        AddItemToInventory(thisObject, item, uiSprite);
-        yield return new WaitForSeconds(0.5f);
-    }
-
+    // Clears item sprites from the loot UI display.
     public void ClearItemSprites(GameObject thisObject)
     {
         Transform itemSprite = thisObject.transform.GetChild(0);
@@ -100,45 +117,74 @@ public class Open : MonoBehaviour {
         thisObject.GetComponent<Image>().enabled = false;
     }
 
-    public Item.ItemType GenerateItemType()
-    {
-        Item.ItemType itemType = (Item.ItemType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Item.ItemType)).Length);
-        return itemType;
-    }
-
-    public Weapon.WeaponType GenerateWeaponType()
-    {
-        Weapon.WeaponType weaponType = (Weapon.WeaponType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Weapon.WeaponType)).Length);
-        return weaponType;
-    }
-
-    protected Sprite GenerateRaritySprite(Dictionary<string, Sprite> dict, Item.Rarity rarity)
+    // Generates the orb sprite based on rarity of the generated item.
+    protected Sprite GenerateOrbRaritySprite(Dictionary<string, Sprite> dict, ItemObject.Rarity rarity)
     {
         switch (rarity)
         {
-            case Item.Rarity.COMMON:
+            case ItemObject.Rarity.COMMON:
                 return dict["Common"];
-            case Item.Rarity.UNCOMMON:
+            case ItemObject.Rarity.UNCOMMON:
                 return dict["Uncommon"];
-            case Item.Rarity.RARE:
+            case ItemObject.Rarity.RARE:
                 return dict["Rare"];
-            case Item.Rarity.EPIC:
+            case ItemObject.Rarity.EPIC:
                 return dict["Epic"];
-            case Item.Rarity.LEGENDARY:
+            case ItemObject.Rarity.LEGENDARY:
                 return dict["Legendary"];
         }
         throw new NotImplementedException();
     }
     
+    // Disables error text message.
     IEnumerator DisableErrorText()
     {
         yield return new WaitForSeconds(2.0f);
         errorText.enabled = false;
     }
 
+    // Adds loot boxes for debug purposes.
     public void DebugAddLootBox()
     {
+        Debug.Log(JsonUtility.ToJson(User.user.equippedArmor));
+        DataManager.dataManager.LoadInventory();
         User.user.LootBoxes += 1;
         firebaseManager.UpdateLootBoxes();
+    }
+
+    public LootBox GenerateLootBox()
+    {
+        LootBox.LootBoxType lootBoxTypeGenerated = (LootBox.LootBoxType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(LootBox.LootBoxType)).Length);
+        return new LootBox(100, User.user.Level, User.user.Level / 10, 4, LootBox.LootType.FREE, lootBoxTypeGenerated, GetLootBoxImage(lootBoxTypeGenerated), GetLootBoxHealth(lootBoxTypeGenerated));
+    }
+
+    public Sprite GetLootBoxImage(LootBox.LootBoxType lootBoxType)
+    {
+        switch(lootBoxType)
+        {
+            case LootBox.LootBoxType.HEAVY:
+                return HeavySprite;
+            case LootBox.LootBoxType.MEDIUM:
+                return MediumSprite;
+            case LootBox.LootBoxType.LIGHT:
+                return LightSprite;
+            default:
+                return LightSprite;
+        }
+    }
+
+    public int GetLootBoxHealth(LootBox.LootBoxType lootBoxType)
+    {
+        switch (lootBoxType)
+        {
+            case LootBox.LootBoxType.HEAVY:
+                return 200;
+            case LootBox.LootBoxType.MEDIUM:
+                return 150;
+            case LootBox.LootBoxType.LIGHT:
+                return 100;
+            default:
+                return 100;
+        }
     }
 }

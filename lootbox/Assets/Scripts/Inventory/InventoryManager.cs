@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,8 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour {
     public List<GameObject> inventorySlots;
     public List<Text> modifierSlots;
+    [SerializeField]
+    public Transform prefab;
     [SerializeField]
     public Text itemNameText;
     [SerializeField]
@@ -23,64 +26,46 @@ public class InventoryManager : MonoBehaviour {
     [SerializeField]
     public Text modifier4Text;
     [SerializeField]
+    public Text modifier5Text;
+    [SerializeField]
     public Image itemSprite;
     [SerializeField]
     public Image itemBackground;
 
     // Use this for initialization
     void Start () {
+        GenerateInventorySlots();
         SetInventorySlots();
         SetModifierSlots();
-        SetSprites();
-        SetBackground();
+        SetItemSprites();
         SelectItem(inventorySlots[0].GetComponent<InventorySlot>().attachedItem);
     }
 	
-    void SetSprites()
+    // Sets the sprites to be equal to the items in the player's inventory
+    void SetItemSprites()
     {
         for (int i = 0; i < User.user.inventory.Count; i++)
-        {
-            Image image = inventorySlots[i].transform.GetChild(0).GetComponent<Image>();
-            image.enabled = true;
-            image.sprite = User.user.inventory[i].itemSprite;
+        { 
             inventorySlots[i].GetComponent<InventorySlot>().attachedItem = User.user.inventory[i];
+            Image itemImage = inventorySlots[i].transform.GetChild(0).GetComponent<Image>();
+            Image backgroundImage = inventorySlots[i].GetComponent<Image>();
+            itemImage.enabled = true;
+            backgroundImage.enabled = true;
+            itemImage.sprite = inventorySlots[i].GetComponent<InventorySlot>().attachedItem.itemSprite;
+            backgroundImage.sprite = inventorySlots[i].GetComponent<InventorySlot>().attachedItem.itemBackgroundSprite;
         }
     }
 
-    void SetBackground()
+    // Instantiates inventory slots based on User.user.InventorySlots
+    void GenerateInventorySlots()
     {
-        foreach (Item item in User.user.inventory)
+        for(int i=0; i < User.user.InventorySlots; i++)
         {
-            foreach (Transform child in transform)
-            {
-                Image image = child.GetComponent<Image>();
-                Item attachedItem = child.GetComponent<InventorySlot>().attachedItem;
-                if(attachedItem != null)
-                {
-                    image.enabled = true;
-                    switch (attachedItem.rarity)
-                    {
-                        case Item.Rarity.COMMON:
-                            image.sprite = Resources.Load<Sprite>("rarityBackground/common");
-                            break;
-                        case Item.Rarity.UNCOMMON:
-                            image.sprite = Resources.Load<Sprite>("rarityBackground/uncommon");
-                            break;
-                        case Item.Rarity.RARE:
-                            image.sprite = Resources.Load<Sprite>("rarityBackground/rare");
-                            break;
-                        case Item.Rarity.EPIC:
-                            image.sprite = Resources.Load<Sprite>("rarityBackground/epic");
-                            break;
-                        case Item.Rarity.LEGENDARY:
-                            image.sprite = Resources.Load<Sprite>("rarityBackground/legendary");
-                            break;
-                    }
-                }
-            }
+            Instantiate(prefab, transform);
         }
     }
-
+    
+    // Adds all inventory slots to a list of inventory slots.
     void SetInventorySlots()
     {
         foreach (Transform child in transform)
@@ -89,15 +74,18 @@ public class InventoryManager : MonoBehaviour {
         }
     }
 
+    // Adds all modifier text objects to the modifierSlots list.
     void SetModifierSlots()
     {
         modifierSlots.Add(modifier1Text);
         modifierSlots.Add(modifier2Text);
         modifierSlots.Add(modifier3Text);
         modifierSlots.Add(modifier4Text);
+        modifierSlots.Add(modifier5Text);
     }
 
-    public void RemoveItem(Item itemToRemove)
+    // Removes an item from inventory.
+    public void RemoveItem(ItemObject itemToRemove)
     {
         for (int i = 0; i < User.user.inventory.Count; i++)
         {
@@ -109,29 +97,31 @@ public class InventoryManager : MonoBehaviour {
         }
     }
 
-    public void SelectItem(Item attachedItem)
+    // Selects an item from the inventory.
+    // TODO : Highlight selected item.
+    public void SelectItem(ItemObject attachedItem)
     {
         DisableModifierText();
         itemNameText.text = "Name: " + attachedItem.itemName.ToString();
         itemRarityText.text = "Rarity: " + attachedItem.rarity.ToString();
         itemKeywordText.text = "Keyword: " + attachedItem.keyword.ToString();
-        itemLevelText.text = "iLevel: " + attachedItem.ItemLevel.ToString();
+        itemLevelText.text = "iLevel: " + attachedItem.itemLevel.ToString();
         itemSprite.sprite = attachedItem.itemSprite;
-        itemBackground.sprite = attachedItem.itemBackground;
+        itemBackground.sprite = attachedItem.itemBackgroundSprite;
         for (int i = 0; i < attachedItem.statCount; i++)
         {
             Text text = modifierSlots[i].GetComponent<Text>();
             text.enabled = true;
             text.text = attachedItem.modifierList[i].StatName + " : " + attachedItem.modifierList[i].StatValue;
         }
-  }
-    
-
-    private void DisableModifierText()
-{
-    for (int i = 0; i < modifierSlots.Count; i++)
-    {
-        modifierSlots[i].GetComponent<Text>().enabled = false;
     }
-}
+
+    // Disables all modifier text.
+    private void DisableModifierText()
+    {
+        for (int i = 0; i < modifierSlots.Count; i++)
+        {
+            modifierSlots[i].GetComponent<Text>().enabled = false;
+        }
+    }
 }

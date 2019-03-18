@@ -8,25 +8,30 @@ public class User : MonoBehaviour {
     private float experienceToNext;
     private int level;
     private int inventorySlots;
+    private int weaponSlots;
     private int equipmentSlots;
     private int lootBoxes;
+    private int maxLootBoxes;
+    private int lastLootBoxAccumulatedTime;
     private int currency;
-    public List<Item> inventory;
+    private float rareChange;
+    public List<ItemObject> inventory;
+    public List<ItemObject> weapons;
+    public List<ItemObject> consumables;
     public Luck luck;
     public Dexterity dexterity;
     public Strength strength;
     public Intelligence intelligence;
-    private float rareChange;
-    public Item equippedHelm;
-    public Item equippedArmor;
-    public Item equippedRightHand;
-    public Item equippedLeftHand;
-    public Item equippedBelt;
-    public Item equippedBoots;
-    public Item equippedGloves;
-    public Item equippedAccessory1;
-    public Item equippedAccessory2;
-    public Item equippedPants;
+    public ItemObject equippedHelm;
+    public ItemObject equippedArmor;
+    public ItemObject equippedRightHand;
+    public ItemObject equippedLeftHand;
+    public ItemObject equippedBelt;
+    public ItemObject equippedBoots;
+    public ItemObject equippedGloves;
+    public ItemObject equippedAccessory1;
+    public ItemObject equippedAccessory2;
+    public ItemObject equippedPants;
 
     public static User user;
 
@@ -34,26 +39,29 @@ public class User : MonoBehaviour {
     {
         if(user == null)
         {
-            DontDestroyOnLoad(gameObject);
             user = this;
+            DontDestroyOnLoad(gameObject);
         }
         else if (user != this)
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
         luck = new Luck("Luck", Stat.StatType.LUCK, Stat.Rarity.RARE, Stat.AffectedStat.RARITY, 0);
         dexterity = new Dexterity("Dexterity", Stat.StatType.DEXTERITY, Stat.Rarity.UNCOMMON, Stat.AffectedStat.ACCUMULATION, 0);
         intelligence = new Intelligence("Intelligence", Stat.StatType.INTELLIGENCE, Stat.Rarity.COMMON, Stat.AffectedStat.THEME, 0);
         strength = new Strength("Strength", Stat.StatType.STRENGTH, Stat.Rarity.COMMON, Stat.AffectedStat.LOOT_AMOUNT, 0);
-        playerName = "Holden";
+        playerName = "";
         level = 1;
         lootBoxes = 1;
+        maxLootBoxes = 5;
+        inventorySlots = 12;
+        weaponSlots = 2;
         experienceToNext = 100;
-    }
-
-    void Start()
-    {
-
+        lastLootBoxAccumulatedTime = 100;
     }
 
     public float Experience
@@ -173,6 +181,45 @@ public class User : MonoBehaviour {
             experienceToNext = value;
         }
     }
+
+    public int MaxLootBoxes
+    {
+        get
+        {
+            return maxLootBoxes;
+        }
+
+        set
+        {
+            maxLootBoxes = value;
+        }
+    }
+
+    public int LastTimeOpenedLootBox
+    {
+        get
+        {
+            return lastLootBoxAccumulatedTime;
+        }
+
+        set
+        {
+            lastLootBoxAccumulatedTime = value;
+        }
+    }
+
+    public int WeaponSlots
+    {
+        get
+        {
+            return weaponSlots;
+        }
+
+        set
+        {
+            weaponSlots = value;
+        }
+    }
 }
 
 [Serializable]
@@ -184,22 +231,22 @@ class PlayerData
     private int equipmentSlots;
     private int lootBoxes;
     private int currency;
-    private List<Item> inventory;
-    private Luck luck;
-    private Dexterity dexterity;
-    private Strength strength;
-    private Intelligence intelligence;
+    private List<ItemObject> inventory;
+    private int luck;
+    private int dexterity;
+    private int strength;
+    private int intelligence;
     private float rareChange;
-    private Item equippedHelm;
-    private Item equippedArmor;
-    private Item equippedRightHand;
-    private Item equippedLeftHand;
-    private Item equippedBelt;
-    private Item equippedBoots;
-    private Item equippedGloves;
-    private Item equippedAccessory1;
-    private Item equippedAccessory2;
-    private Item equippedPants;
+    private string equippedHelm;
+    private string equippedArmor;
+    private string equippedRightHand;
+    private string equippedLeftHand;
+    private string equippedBelt;
+    private string equippedBoots;
+    private string equippedGloves;
+    private string equippedAccessory1;
+    private string equippedAccessory2;
+    private string equippedPants;
 
     public float Experience
     {
@@ -279,7 +326,7 @@ class PlayerData
         }
     }
 
-    public Luck Luck
+    public int Luck
     {
         get
         {
@@ -292,7 +339,7 @@ class PlayerData
         }
     }
 
-    public Dexterity Dexterity
+    public int Dexterity
     {
         get
         {
@@ -305,7 +352,7 @@ class PlayerData
         }
     }
 
-    public Strength Strength
+    public int Strength
     {
         get
         {
@@ -318,7 +365,7 @@ class PlayerData
         }
     }
 
-    public Intelligence Intelligence
+    public int Intelligence
     {
         get
         {
@@ -344,7 +391,7 @@ class PlayerData
         }
     }
 
-    public List<Item> Inventory
+    public List<ItemObject> Inventory
     {
         get
         {
@@ -357,7 +404,7 @@ class PlayerData
         }
     }
 
-    public Item EquippedHelm
+    public string EquippedHelm
     {
         get
         {
@@ -370,7 +417,7 @@ class PlayerData
         }
     }
 
-    public Item EquippedArmor
+    public string EquippedArmor
     {
         get
         {
@@ -383,7 +430,7 @@ class PlayerData
         }
     }
 
-    public Item EquippedRightHand
+    public string EquippedRightHand
     {
         get
         {
@@ -396,7 +443,7 @@ class PlayerData
         }
     }
 
-    public Item EquippedLeftHand
+    public string EquippedLeftHand
     {
         get
         {
@@ -409,7 +456,7 @@ class PlayerData
         }
     }
 
-    public Item EquippedBelt
+    public string EquippedBelt
     {
         get
         {
@@ -422,7 +469,7 @@ class PlayerData
         }
     }
 
-    public Item EquippedBoots
+    public string EquippedBoots
     {
         get
         {
@@ -435,7 +482,7 @@ class PlayerData
         }
     }
 
-    public Item EquippedGloves
+    public string EquippedGloves
     {
         get
         {
@@ -448,7 +495,7 @@ class PlayerData
         }
     }
 
-    public Item EquippedAccessory1
+    public string EquippedAccessory1
     {
         get
         {
@@ -461,7 +508,7 @@ class PlayerData
         }
     }
 
-    public Item EquippedAccessory2
+    public string EquippedAccessory2
     {
         get
         {
@@ -474,7 +521,7 @@ class PlayerData
         }
     }
 
-    public Item EquippedPants
+    public string EquippedPants
     {
         get
         {

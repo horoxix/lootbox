@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4fa0d2a10af4140a8dbb58e17d8b43, type: 3}
+  m_Name: Frost Sword
+  m_EditorClassIdentifier: 
+  rarity: 0
+  keyword: 0
+  itemType: 0
+  itemName: Frost Sword
+  itemTypeName: weapon
+  itemNameList: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 384da1c94866ec249a84eb12c74ecdba, type: 3}
+  itemBackgroundSprite: {fileID: 0}
+  value: 0
+  statCount: 0
+  ItemLevel: 0
+  equipped: 0

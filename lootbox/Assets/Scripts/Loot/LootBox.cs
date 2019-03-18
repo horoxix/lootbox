@@ -1,12 +1,28 @@
 ﻿using UnityEngine;
 
-public class LootBox : MonoBehaviour {
-    protected float dropRate;
-    protected int cost;
+public class LootBox {
+    private float dropRate;
+    private int cost;
+    public int lootBoxLevel;
     private int experience;
-    protected int itemCount;
-    protected LootType lootType;
+    public int itemCount;
+    public LootType lootType;
+    public LootBoxType lootBoxType;
+    public Sprite lootBoxImage;
+    public int lootBoxHealth;
 
+    public LootBox(int cost, int level, int experience, int itemCount, LootType lootType, LootBoxType lootBoxType, Sprite lootBoxImage, int health)
+    {
+        this.cost = cost;
+        this.lootBoxLevel = level;
+        this.experience = experience;
+        this.itemCount = itemCount;
+        this.lootType = lootType;
+        this.lootBoxType = lootBoxType;
+        this.lootBoxImage = lootBoxImage;
+        this.lootBoxHealth = health;
+    }
+    // How many items the lootBox holds.
     public int ItemCount
     {
         get
@@ -20,6 +36,7 @@ public class LootBox : MonoBehaviour {
         }
     }
 
+    // How much experience you get for opening the loot box.
     public int Experience
     {
         get
@@ -33,9 +50,45 @@ public class LootBox : MonoBehaviour {
         }
     }
 
-    protected enum LootType
+    // TBT drop rate.
+    public float DropRate
+    {
+        get
+        {
+            return dropRate;
+        }
+
+        set
+        {
+            dropRate = value;
+        }
+    }
+
+    // How much the lootbox costs.
+    public int Cost
+    {
+        get
+        {
+            return cost;
+        }
+
+        set
+        {
+            cost = value;
+        }
+    }
+
+    // Paid or Free loot.
+    public enum LootType
     {
         FREE,
         PAID
+    }
+
+    public enum LootBoxType
+    {
+        HEAVY,
+        MEDIUM,
+        LIGHT
     }
 }

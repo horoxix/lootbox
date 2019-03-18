@@ -8,6 +8,11 @@ public class EquipmentManager : MonoBehaviour {
     public List<GameObject> equipmentSlots;
     public List<Text> modifierSlots;
     [SerializeField]
+    public Animator animator;
+    public bool ModalShown;
+
+    // Modal objects.
+    [SerializeField]
     public Text itemNameText;
     [SerializeField]
     public Text itemLevelText;
@@ -24,10 +29,15 @@ public class EquipmentManager : MonoBehaviour {
     [SerializeField]
     public Text modifier4Text;
     [SerializeField]
+    public Text modifier5Text;
+    [SerializeField]
     public Image itemSprite;
     [SerializeField]
     public Image itemBackground;
+    [SerializeField]
+    public CanvasGroup canvasGroup;
 
+    // Player objects.
     [SerializeField]
     public Text playerNameText;
     [SerializeField]
@@ -41,6 +51,7 @@ public class EquipmentManager : MonoBehaviour {
     [SerializeField]
     public Text playerStrAmountText;
 
+    // Equipment objects.
     [SerializeField]
     public EquipmentSlot HelmSlot;
     [SerializeField]
@@ -60,9 +71,6 @@ public class EquipmentManager : MonoBehaviour {
     [SerializeField]
     public EquipmentSlot PantsSlot;
 
-    [SerializeField]
-    public CanvasGroup canvasGroup;
-
     // Use this for initialization
     void Start()
     {
@@ -74,30 +82,33 @@ public class EquipmentManager : MonoBehaviour {
         SetBackground();
     }
 
-
+    // Assigns item modifier slots.
     void SetModifierSlots()
     {
         modifierSlots.Add(modifier1Text);
         modifierSlots.Add(modifier2Text);
         modifierSlots.Add(modifier3Text);
         modifierSlots.Add(modifier4Text);
+        modifierSlots.Add(modifier5Text);
     }
-
-    public Item CheckForExists(Item userItem)
+    
+    // Checks if item exists in slot.
+    public ItemObject CheckForExists(ItemObject userItem)
     {
-        if(userItem != null)
+        if (userItem != null)
         {
             return userItem;
-        } else
+        }
+        else
         {
-            Debug.Log("no equipped item");
             return null;
         }
     }
 
-    public Sprite EquipmentSprite(Item userItem, string itemTypeString)
+    // Returns specific sprite.
+    public Sprite EquipmentSprite(ItemObject userItem, string itemTypeString)
     {
-        if(CheckForExists(userItem)) {
+        if(CheckForExists(userItem) != null) {
             return userItem.itemSprite;
         } else
         {
@@ -105,6 +116,7 @@ public class EquipmentManager : MonoBehaviour {
         }
     }
 
+    // Sets sprites based on attached item.
     void SetSprites()
     {
         ArmorSlot.transform.GetChild(0).GetComponent<Image>().sprite = EquipmentSprite(ArmorSlot.attachedItem, "Armor");
@@ -118,6 +130,7 @@ public class EquipmentManager : MonoBehaviour {
         RightHandSlot.transform.GetChild(0).GetComponent<Image>().sprite = EquipmentSprite(RightHandSlot.attachedItem, "Weapon");
     }
 
+    // Attaches items to slots based on equipped item.
     public void AttachItems()
     {
         HelmSlot.attachedItem = CheckForExists(User.user.equippedHelm);
@@ -131,6 +144,7 @@ public class EquipmentManager : MonoBehaviour {
         BootsSlot.attachedItem = CheckForExists(User.user.equippedBoots);
     }
 
+    // Updates player data text based on equipped items.
     void SetPlayerDataText()
     {
         playerNameText.text = "Name : " + User.user.PlayerName;
@@ -141,21 +155,22 @@ public class EquipmentManager : MonoBehaviour {
         playerStrAmountText.text = "Str : "  + User.user.strength.StatValue.ToString();
     }
 
+    // Sets rarity backgrounds based on item's rarityBackground.
     void SetBackground()
     {
         foreach (Transform child in transform)
         {
             Image image = child.GetComponent<Image>();
-            Item attachedItem = child.GetComponent<EquipmentSlot>().attachedItem;
+            ItemObject attachedItem = child.GetComponent<EquipmentSlot>().attachedItem;
             if(attachedItem != null)
             {
                 image.enabled = true;
-                image.sprite = attachedItem.itemBackground;
+                image.sprite = attachedItem.itemBackgroundSprite;
             }
         }
     }
     
-
+    // Sets Equipment Slots.
     void SetEquipmentSlots()
     {
         foreach (Transform child in transform)
@@ -164,8 +179,8 @@ public class EquipmentManager : MonoBehaviour {
         }
     }
 
-
-    public void RemoveItem(Item itemToRemove)
+    // Removes an item.
+    public void RemoveItem(ItemObject itemToRemove)
     {
         for (int i = 0; i < User.user.inventory.Count; i++)
         {
@@ -188,6 +203,7 @@ public class EquipmentManager : MonoBehaviour {
         }
     }
 
+    // Toggles canvas between visible and invisible.
     public void ToggleCanvas(int value)
     {
         StartCoroutine(FadeTo(value, 1));
@@ -195,15 +211,16 @@ public class EquipmentManager : MonoBehaviour {
         canvasGroup.blocksRaycasts = !canvasGroup.blocksRaycasts;
     }
 
-    public void SelectItem(Item attachedItem)
+    // Selecting an item displays information about it.
+    public void SelectItem(ItemObject attachedItem)
     {
         DisableModifierText();
         itemNameText.text = "Name: " + attachedItem.itemName.ToString();
         itemRarityText.text = "Rarity: " + attachedItem.rarity.ToString();
         itemKeywordText.text = "Keyword: " + attachedItem.keyword.ToString();
-        itemLevelText.text = "iLevel: " + attachedItem.ItemLevel.ToString();
+        itemLevelText.text = "iLevel: " + attachedItem.itemLevel.ToString();
         itemSprite.sprite = attachedItem.itemSprite;
-        itemBackground.sprite = attachedItem.itemBackground;
+        itemBackground.sprite = attachedItem.itemBackgroundSprite;
         for (int i = 0; i < attachedItem.statCount; i++)
         {
             Text text = modifierSlots[i].GetComponent<Text>();
@@ -212,6 +229,7 @@ public class EquipmentManager : MonoBehaviour {
         }
     }
 
+    // Disables modifier text.
     private void DisableModifierText()
     {
         for (int i = 0; i < modifierSlots.Count; i++)

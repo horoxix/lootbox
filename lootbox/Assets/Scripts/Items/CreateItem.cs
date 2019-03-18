@@ -6,35 +6,40 @@ using System;
 
 public class CreateItem
 {
-    //[MenuItem("Assets/Create/Item")]
+    // Generates an Item
     public static Item Create()
     {
         GenerateSprite generateSprite = new GenerateSprite();
+        RandomManager randomManager = new RandomManager();
+        StatFactory statFactory = new ConcreteStatFactory();
         Item asset = ScriptableObject.CreateInstance<Item>();
+        randomManager.SetAnimationCurve();
         asset.itemType = (Item.ItemType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Item.ItemType)).Length);
         asset.itemTypeName = asset.itemType.ToString().ToLower();
-        RandomManager randomManager = new RandomManager();
-        randomManager.SetAnimationCurve();
         asset.rarity = (Item.Rarity)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.cumulativeProbability));
         asset.keyword = (Item.Keywords)Mathf.RoundToInt(randomManager.CurveWeightedRandom(randomManager.cumulativeProbability));
-        StatFactory statFactory = new ConcreteStatFactory();
         asset.statCount = statFactory.GenerateStatAmount(asset.rarity);
         asset.modifierList = new List<Stat>();
         for (int i = 0; i < asset.statCount; i++)
         {
             asset.modifierList.Add(statFactory.GetStat(statFactory.GenerateStatType(), asset));
-            Debug.Log(asset.modifierList[i].StatName + " " + asset.modifierList[i].StatValue);
         }
         asset.itemName = asset.keyword.ToString().ToLower() + " " + asset.rarity.ToString().ToLower() + " " + asset.itemTypeName;
         asset.itemSpriteList = generateSprite.GenerateSpriteList(asset.itemType);
         asset.itemSprite = GenerateSpriteType(asset.itemSpriteList, asset.rarity);
         asset.ItemLevel = GenerateItemLevel(asset.rarity);
-        asset.itemBackground = GenerateSpriteType(BackgroundSprites.backgroundSprites, asset.rarity);
-        //AssetDatabase.CreateAsset(asset, "Assets/Data/" + asset.itemName + "-" + Guid.NewGuid() + ".asset");
-        //AssetDatabase.SaveAssets();
+        asset.itemBackgroundSprite = GenerateSpriteType(BackgroundSprites.backgroundSprites, asset.rarity);
         return asset;
     }
 
+    // For use if we want to save the asset as a data file.
+    public void SaveAsset(Item item)
+    {
+        //AssetDatabase.CreateAsset(asset, "Assets/Data/" + asset.itemName + "-" + Guid.NewGuid() + ".asset");
+        //AssetDatabase.SaveAssets();
+    }
+
+    // Generates the sprite based on rarity of the item.
     public static Sprite GenerateSpriteType(Dictionary<string, Sprite> dict, Item.Rarity rarity)
     {
         switch (rarity)
@@ -56,6 +61,8 @@ public class CreateItem
         throw new NotImplementedException();
     }
 
+    // Generates the item level based on rarity
+    // TODO : * by player level.
     public static int GenerateItemLevel(Item.Rarity rarity) 
     {
         switch (rarity)

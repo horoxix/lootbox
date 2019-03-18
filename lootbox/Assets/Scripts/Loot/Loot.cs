@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Loot : MonoBehaviour {
     private Text currencyText;
-    public Item attachedItem;
+    public ItemObject attachedItem;
     public bool itemAttached;
     private void Start()
     {
@@ -41,7 +41,7 @@ public class Loot : MonoBehaviour {
     // Disenchants based on item's value and adds to user.currency
     public void Disenchant()
     {
-        Item item = attachedItem;
+        ItemObject item = attachedItem;
         RemoveImage();
         HideButtons();
         //AssetDatabase.DeleteAsset("Assets/Data/" + attachedItem.name.ToString() + ".asset");
@@ -53,7 +53,7 @@ public class Loot : MonoBehaviour {
 
     public void EmptySlot()
     {
-        Item item = attachedItem;
+        ItemObject item = attachedItem;
         RemoveImage();
         RemoveAttachedItem();
     }
@@ -71,26 +71,26 @@ public class Loot : MonoBehaviour {
             buttons.gameObject.SetActive(true);
             switch (attachedItem.rarity)
             {
-                case Item.Rarity.COMMON:
+                case ItemObject.Rarity.COMMON:
                     image.sprite = Resources.Load<Sprite>("rarityBackground/common");
                     break;
-                case Item.Rarity.UNCOMMON:
+                case ItemObject.Rarity.UNCOMMON:
                     image.sprite = Resources.Load<Sprite>("rarityBackground/uncommon");
                     break;
-                case Item.Rarity.RARE:
+                case ItemObject.Rarity.RARE:
                     image.sprite = Resources.Load<Sprite>("rarityBackground/rare");
                     break;
-                case Item.Rarity.EPIC:
+                case ItemObject.Rarity.EPIC:
                     image.sprite = Resources.Load<Sprite>("rarityBackground/epic");
                     break;
-                case Item.Rarity.LEGENDARY:
+                case ItemObject.Rarity.LEGENDARY:
                     image.sprite = Resources.Load<Sprite>("rarityBackground/legendary");
                     break;
             }
         }
     }
 
-    public void RemoveItem(Item itemToRemove)
+    public void RemoveItem(ItemObject itemToRemove)
     {
         for (int i = 0; i < User.user.inventory.Count; i++)
         {

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Equip : MonoBehaviour {
-    public Item selectedItem;
+    public ItemObject selectedItem;
 
+    // Equips an item and adds stat bonuses.
     public void EquipItem()
     {
-        Debug.Log("Equipped : " + selectedItem.itemName);
         switch(selectedItem.itemTypeName) {
             case "weapon":
                 if(User.user.equippedLeftHand != null)
@@ -109,7 +109,8 @@ public class Equip : MonoBehaviour {
             }
     }
 
-    private void CheckForEquipped(Item userItem)
+    // Checks if an item is already equipped in slot. If so, removes it first.
+    private void CheckForEquipped(ItemObject userItem)
     {
         if (userItem != null)
         {
@@ -117,25 +118,29 @@ public class Equip : MonoBehaviour {
         }
     }
 
-    private void UnequipItem(Item item)
+    // Unequips an item, removing stat bonuses.
+    private void UnequipItem(ItemObject item)
     {
         Debug.Log("Unequipped : " + item.itemName);
-        foreach (Stat modifier in item.modifierList)
+        if(item.statCount > 0)
         {
-            switch (modifier.statType)
+            foreach (Stat modifier in item.modifierList)
             {
-                case Stat.StatType.LUCK:
-                    User.user.luck.StatValue -= modifier.StatValue;
-                    break;
-                case Stat.StatType.DEXTERITY:
-                    User.user.dexterity.StatValue -= modifier.StatValue;
-                    break;
-                case Stat.StatType.INTELLIGENCE:
-                    User.user.intelligence.StatValue -= modifier.StatValue;
-                    break;
-                case Stat.StatType.STRENGTH:
-                    User.user.strength.StatValue -= modifier.StatValue;
-                    break;
+                switch (modifier.statType)
+                {
+                    case Stat.StatType.LUCK:
+                        User.user.luck.StatValue -= modifier.StatValue;
+                        break;
+                    case Stat.StatType.DEXTERITY:
+                        User.user.dexterity.StatValue -= modifier.StatValue;
+                        break;
+                    case Stat.StatType.INTELLIGENCE:
+                        User.user.intelligence.StatValue -= modifier.StatValue;
+                        break;
+                    case Stat.StatType.STRENGTH:
+                        User.user.strength.StatValue -= modifier.StatValue;
+                        break;
+                }
             }
         }
     }

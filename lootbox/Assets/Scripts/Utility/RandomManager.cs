@@ -5,6 +5,7 @@ using UnityEngine;
 public class RandomManager {
     public AnimationCurve cumulativeProbability;
     public static RandomManager randomManager;
+    public static System.Random random = new System.Random();
 
     public void SetAnimationCurve()
     {

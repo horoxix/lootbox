@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class EquipmentSprites {
-
     public static Dictionary<string, Sprite> equipmentSprites = new Dictionary<string, Sprite>
         {
             { "Weapon", Resources.Load<Sprite>("equipmentBackgrounds/weapon") },

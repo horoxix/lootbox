@@ -5,13 +5,19 @@ using UnityEngine;
 
 public class EquipmentSlot : MonoBehaviour
 {
-    public Item attachedItem;
+    public ItemObject attachedItem;
     public EquipmentManager equipmentManager;
 
+    // Slides in item information on click of equipment slot.
     private void OnMouseDown()
     {
         equipmentManager = FindObjectOfType<EquipmentManager>();
-        equipmentManager.ToggleCanvas(1);
-        equipmentManager.SelectItem(attachedItem);
+        if (attachedItem != null && equipmentManager.ModalShown == false)
+        {
+            equipmentManager.SelectItem(attachedItem);
+            equipmentManager.animator.SetBool("SlideIn", true);
+            equipmentManager.animator.SetBool("ModalShown", false);
+            equipmentManager.ModalShown = true;
+        }
     }
 }
